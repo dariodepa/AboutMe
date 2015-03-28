@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "CZAuthenticationVC.h"
 
 @interface ViewController ()
 
@@ -39,19 +40,51 @@
 //            // Show the errorString somewhere and let the user try again.
 //        }
 //    }];
-     NSLog(@"viewDidLoad!!!!!!");
-    [PFFacebookUtils initializeFacebook];
-    NSArray *permissionsArray = @[ @"email", @"user_friends"];
-    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
-        if (!user) {
-            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-        } else if (user.isNew) {
-            NSLog(@"User signed up and logged in through Facebook!");
-        } else {
-            NSLog(@"User logged in through Facebook!");
+//     NSLog(@"viewDidLoad!!!!!!");
+//    [PFFacebookUtils initializeFacebook];
+//    NSArray *permissionsArray = @[@"public_profile", @"email", @"user_friends"];
+//    [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
+//        if (!user) {
+//            NSLog(@"Uh oh. The user cancelled the Facebook login.");
+//        } else if (user.isNew) {
+//            NSLog(@"User signed up and logged in through Facebook!");
+//        } else {
+//            NSLog(@"User logged in through Facebook!");
+//        }
+//    }];
+    
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        NSLog(@"result! %@", result);
+        if (!error) {
+            // result is a dictionary with the user's Facebook data
+            NSDictionary *userData = (NSDictionary *)result;
+            
+            NSString *facebookID = userData[@"id"];
+            NSString *name = userData[@"name"];
+            NSString *location = userData[@"location"][@"name"];
+            NSString *gender = userData[@"gender"];
+            NSString *birthday = userData[@"birthday"];
+            NSString *relationship = userData[@"relationship_status"];
+            
+            NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+            
+            [self openAuthenticationView];
+        }else{
+            //
         }
     }];
 }
+
+
+-(void)openAuthenticationView{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Authentication" bundle:nil];
+    CZAuthenticationVC *vc = (CZAuthenticationVC *)[sb instantiateViewControllerWithIdentifier:@"StartAuthentication"];
+    vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;//UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:vc animated:YES completion:NULL];
+}
+
+
 
 
 
