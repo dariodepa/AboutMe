@@ -171,7 +171,6 @@
 					};
 					DCD7850E1AC6ACD6003E1752 = {
 						CreatedOnToolsVersion = 6.2;
-						TestTargetID = DCD784F51AC6ACD5003E1752;
 					};
 				};
 			};
@@ -362,7 +361,6 @@
 		DCD7851D1AC6ACD6003E1752 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -374,14 +372,12 @@
 				INFOPLIST_FILE = AboutMeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AboutMe.app/AboutMe";
 			};
 			name = Debug;
 		};
 		DCD7851E1AC6ACD6003E1752 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -389,7 +385,6 @@
 				INFOPLIST_FILE = AboutMeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AboutMe.app/AboutMe";
 			};
 			name = Release;
 		};
