@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC9E837B1ACFE096008849D2 /* CZswapvc.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9E837A1ACFE096008849D2 /* CZswapvc.m */; };
+		DC9E837E1AD05A9D008849D2 /* CZLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9E837D1AD05A9D008849D2 /* CZLoginVC.m */; };
+		DC9E83811AD58BD4008849D2 /* DDPWebPagesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9E83801AD58BD4008849D2 /* DDPWebPagesVC.m */; };
 		DCD784FC1AC6ACD5003E1752 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD784FB1AC6ACD5003E1752 /* main.m */; };
 		DCD784FF1AC6ACD6003E1752 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD784FE1AC6ACD6003E1752 /* AppDelegate.m */; };
 		DCD785021AC6ACD6003E1752 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD785011AC6ACD6003E1752 /* ViewController.m */; };
@@ -31,18 +34,29 @@
 		DCD785491AC6D16B003E1752 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD785481AC6D16B003E1752 /* ParseFacebookUtils.framework */; };
 		DCD7854D1AC6D529003E1752 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD7854C1AC6D529003E1752 /* FacebookSDK.framework */; };
 		DCD7854F1AC6E910003E1752 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD7854E1AC6E910003E1752 /* Bolts.framework */; };
-		DCD785671AC7097A003E1752 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCD785591AC7097A003E1752 /* Authentication.storyboard */; };
-		DCD785691AC7097A003E1752 /* settingsAuthentication.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCD7855C1AC7097A003E1752 /* settingsAuthentication.plist */; };
-		DCD7856F1AC70C37003E1752 /* CZAuthenticationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD7856E1AC70C37003E1752 /* CZAuthenticationVC.m */; };
 		DCD785781AC70DF3003E1752 /* triangolo.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785721AC70DF3003E1752 /* triangolo.png */; };
 		DCD785791AC70DF3003E1752 /* triangolo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785731AC70DF3003E1752 /* triangolo@2x.png */; };
 		DCD7857A1AC70DF3003E1752 /* buttonArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785741AC70DF3003E1752 /* buttonArrow.png */; };
 		DCD7857B1AC70DF3003E1752 /* buttonArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785751AC70DF3003E1752 /* buttonArrow@2x.png */; };
 		DCD7857C1AC70DF3003E1752 /* headerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785761AC70DF3003E1752 /* headerBackground.png */; };
 		DCD7857D1AC70DF3003E1752 /* headerBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785771AC70DF3003E1752 /* headerBackground@2x.png */; };
+		DCD785821AC70E89003E1752 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCD7857E1AC70E89003E1752 /* Authentication.storyboard */; };
+		DCD785831AC70E89003E1752 /* settingsAuthentication.plist in Resources */ = {isa = PBXBuildFile; fileRef = DCD7857F1AC70E89003E1752 /* settingsAuthentication.plist */; };
+		DCD785871AC70EB3003E1752 /* CZAuthenticationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD785861AC70EB3003E1752 /* CZAuthenticationVC.m */; };
+		DCD7858A1AC70F6F003E1752 /* logoFB-20x20.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785881AC70F6F003E1752 /* logoFB-20x20.png */; };
+		DCD7858B1AC70F6F003E1752 /* logoFB-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD785891AC70F6F003E1752 /* logoFB-20x20@2x.png */; };
+		DCD7858F1AC72E78003E1752 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD7858E1AC72E78003E1752 /* MBProgressHUD.m */; };
+		DCD785921AC85B32003E1752 /* CZSignInTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD785911AC85B32003E1752 /* CZSignInTVC.m */; };
+		DCD785951AC883B7003E1752 /* CZSignInEmailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD785941AC883B7003E1752 /* CZSignInEmailVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DC9E83791ACFE096008849D2 /* CZswapvc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZswapvc.h; sourceTree = "<group>"; };
+		DC9E837A1ACFE096008849D2 /* CZswapvc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZswapvc.m; sourceTree = "<group>"; };
+		DC9E837C1AD05A9D008849D2 /* CZLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZLoginVC.h; sourceTree = "<group>"; };
+		DC9E837D1AD05A9D008849D2 /* CZLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZLoginVC.m; sourceTree = "<group>"; };
+		DC9E837F1AD58BD4008849D2 /* DDPWebPagesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDPWebPagesVC.h; sourceTree = "<group>"; };
+		DC9E83801AD58BD4008849D2 /* DDPWebPagesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDPWebPagesVC.m; sourceTree = "<group>"; };
 		DCD784F61AC6ACD5003E1752 /* AboutMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AboutMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCD784FA1AC6ACD5003E1752 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DCD784FB1AC6ACD5003E1752 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -71,16 +85,24 @@
 		DCD785481AC6D16B003E1752 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		DCD7854C1AC6D529003E1752 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		DCD7854E1AC6E910003E1752 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		DCD785591AC7097A003E1752 /* Authentication.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
-		DCD7855C1AC7097A003E1752 /* settingsAuthentication.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = settingsAuthentication.plist; sourceTree = "<group>"; };
-		DCD7856D1AC70C37003E1752 /* CZAuthenticationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZAuthenticationVC.h; sourceTree = "<group>"; };
-		DCD7856E1AC70C37003E1752 /* CZAuthenticationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZAuthenticationVC.m; sourceTree = "<group>"; };
 		DCD785721AC70DF3003E1752 /* triangolo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = triangolo.png; sourceTree = "<group>"; };
 		DCD785731AC70DF3003E1752 /* triangolo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triangolo@2x.png"; sourceTree = "<group>"; };
 		DCD785741AC70DF3003E1752 /* buttonArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buttonArrow.png; sourceTree = "<group>"; };
 		DCD785751AC70DF3003E1752 /* buttonArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "buttonArrow@2x.png"; sourceTree = "<group>"; };
 		DCD785761AC70DF3003E1752 /* headerBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = headerBackground.png; sourceTree = "<group>"; };
 		DCD785771AC70DF3003E1752 /* headerBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerBackground@2x.png"; sourceTree = "<group>"; };
+		DCD7857E1AC70E89003E1752 /* Authentication.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		DCD7857F1AC70E89003E1752 /* settingsAuthentication.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = settingsAuthentication.plist; sourceTree = "<group>"; };
+		DCD785851AC70EB3003E1752 /* CZAuthenticationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZAuthenticationVC.h; sourceTree = "<group>"; };
+		DCD785861AC70EB3003E1752 /* CZAuthenticationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZAuthenticationVC.m; sourceTree = "<group>"; };
+		DCD785881AC70F6F003E1752 /* logoFB-20x20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoFB-20x20.png"; sourceTree = "<group>"; };
+		DCD785891AC70F6F003E1752 /* logoFB-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logoFB-20x20@2x.png"; sourceTree = "<group>"; };
+		DCD7858D1AC72E78003E1752 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		DCD7858E1AC72E78003E1752 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		DCD785901AC85B32003E1752 /* CZSignInTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZSignInTVC.h; sourceTree = "<group>"; };
+		DCD785911AC85B32003E1752 /* CZSignInTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZSignInTVC.m; sourceTree = "<group>"; };
+		DCD785931AC883B7003E1752 /* CZSignInEmailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZSignInEmailVC.h; sourceTree = "<group>"; };
+		DCD785941AC883B7003E1752 /* CZSignInEmailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZSignInEmailVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +154,7 @@
 		DCD784F81AC6ACD5003E1752 /* AboutMe */ = {
 			isa = PBXGroup;
 			children = (
+				DCD7858C1AC72E66003E1752 /* Classes */,
 				DCD785701AC70CAB003E1752 /* Authentication */,
 				DCD784FD1AC6ACD5003E1752 /* AppDelegate.h */,
 				DCD784FE1AC6ACD6003E1752 /* AppDelegate.m */,
@@ -182,11 +205,21 @@
 		DCD785701AC70CAB003E1752 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				DCD785931AC883B7003E1752 /* CZSignInEmailVC.h */,
+				DCD785941AC883B7003E1752 /* CZSignInEmailVC.m */,
+				DCD785901AC85B32003E1752 /* CZSignInTVC.h */,
+				DCD785911AC85B32003E1752 /* CZSignInTVC.m */,
 				DCD785711AC70DE0003E1752 /* images */,
-				DCD785591AC7097A003E1752 /* Authentication.storyboard */,
-				DCD7855C1AC7097A003E1752 /* settingsAuthentication.plist */,
-				DCD7856D1AC70C37003E1752 /* CZAuthenticationVC.h */,
-				DCD7856E1AC70C37003E1752 /* CZAuthenticationVC.m */,
+				DCD7857E1AC70E89003E1752 /* Authentication.storyboard */,
+				DCD7857F1AC70E89003E1752 /* settingsAuthentication.plist */,
+				DCD785851AC70EB3003E1752 /* CZAuthenticationVC.h */,
+				DCD785861AC70EB3003E1752 /* CZAuthenticationVC.m */,
+				DC9E83791ACFE096008849D2 /* CZswapvc.h */,
+				DC9E837A1ACFE096008849D2 /* CZswapvc.m */,
+				DC9E837C1AD05A9D008849D2 /* CZLoginVC.h */,
+				DC9E837D1AD05A9D008849D2 /* CZLoginVC.m */,
+				DC9E837F1AD58BD4008849D2 /* DDPWebPagesVC.h */,
+				DC9E83801AD58BD4008849D2 /* DDPWebPagesVC.m */,
 			);
 			name = Authentication;
 			sourceTree = "<group>";
@@ -194,6 +227,8 @@
 		DCD785711AC70DE0003E1752 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DCD785881AC70F6F003E1752 /* logoFB-20x20.png */,
+				DCD785891AC70F6F003E1752 /* logoFB-20x20@2x.png */,
 				DCD785721AC70DF3003E1752 /* triangolo.png */,
 				DCD785731AC70DF3003E1752 /* triangolo@2x.png */,
 				DCD785741AC70DF3003E1752 /* buttonArrow.png */,
@@ -202,6 +237,15 @@
 				DCD785771AC70DF3003E1752 /* headerBackground@2x.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		DCD7858C1AC72E66003E1752 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DCD7858D1AC72E78003E1752 /* MBProgressHUD.h */,
+				DCD7858E1AC72E78003E1752 /* MBProgressHUD.m */,
+			);
+			name = Classes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,14 +308,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCD7857C1AC70DF3003E1752 /* headerBackground.png in Resources */,
-				DCD785671AC7097A003E1752 /* Authentication.storyboard in Resources */,
 				DCD7857A1AC70DF3003E1752 /* buttonArrow.png in Resources */,
 				DCD785791AC70DF3003E1752 /* triangolo@2x.png in Resources */,
+				DCD785831AC70E89003E1752 /* settingsAuthentication.plist in Resources */,
 				DCD785781AC70DF3003E1752 /* triangolo.png in Resources */,
+				DCD7858B1AC70F6F003E1752 /* logoFB-20x20@2x.png in Resources */,
+				DCD785821AC70E89003E1752 /* Authentication.storyboard in Resources */,
 				DCD7857B1AC70DF3003E1752 /* buttonArrow@2x.png in Resources */,
 				DCD785051AC6ACD6003E1752 /* Main.storyboard in Resources */,
-				DCD785691AC7097A003E1752 /* settingsAuthentication.plist in Resources */,
 				DCD7850A1AC6ACD6003E1752 /* LaunchScreen.xib in Resources */,
+				DCD7858A1AC70F6F003E1752 /* logoFB-20x20.png in Resources */,
 				DCD7857D1AC70DF3003E1752 /* headerBackground@2x.png in Resources */,
 				DCD785071AC6ACD6003E1752 /* Images.xcassets in Resources */,
 			);
@@ -285,8 +331,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				DCD785021AC6ACD6003E1752 /* ViewController.m in Sources */,
-				DCD7856F1AC70C37003E1752 /* CZAuthenticationVC.m in Sources */,
 				DCD784FF1AC6ACD6003E1752 /* AppDelegate.m in Sources */,
+				DCD7858F1AC72E78003E1752 /* MBProgressHUD.m in Sources */,
+				DC9E837E1AD05A9D008849D2 /* CZLoginVC.m in Sources */,
+				DCD785871AC70EB3003E1752 /* CZAuthenticationVC.m in Sources */,
+				DC9E83811AD58BD4008849D2 /* DDPWebPagesVC.m in Sources */,
+				DCD785921AC85B32003E1752 /* CZSignInTVC.m in Sources */,
+				DCD785951AC883B7003E1752 /* CZSignInEmailVC.m in Sources */,
+				DC9E837B1ACFE096008849D2 /* CZswapvc.m in Sources */,
 				DCD784FC1AC6ACD5003E1752 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,6 +502,7 @@
 				DCD7851B1AC6ACD6003E1752 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

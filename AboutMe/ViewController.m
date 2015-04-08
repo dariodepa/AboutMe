@@ -53,9 +53,11 @@
 //        }
 //    }];
     
+    
+    //controllo da fare dopo che ho mostrato la view !!!!!
     FBRequest *request = [FBRequest requestForMe];
     [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        NSLog(@"result! %@", result);
+        NSLog(@"result! %@ - %@", result, error);
         if (!error) {
             // result is a dictionary with the user's Facebook data
             NSDictionary *userData = (NSDictionary *)result;
@@ -69,7 +71,7 @@
             
             NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
             
-            [self openAuthenticationView];
+            //[self openAuthenticationView];
         }else{
             //
         }
@@ -78,6 +80,7 @@
 
 
 -(void)openAuthenticationView{
+    NSLog(@"openAuthenticationView!");
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Authentication" bundle:nil];
     CZAuthenticationVC *vc = (CZAuthenticationVC *)[sb instantiateViewControllerWithIdentifier:@"StartAuthentication"];
     vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;//UIModalTransitionStyleFlipHorizontal;
@@ -85,7 +88,19 @@
 }
 
 
+- (void)logoutButtonAction{
+    [PFUser logOut]; // Log out
+    // Return to Login view controller
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 
+- (IBAction)actionGo:(id)sender {
+    [self openAuthenticationView];
+}
+
+- (IBAction)buttonLogout:(id)sender {
+    [self logoutButtonAction];
+}
 
 @end

@@ -10,6 +10,8 @@
 #import <Parse/Parse.h>
 @interface ViewController : UIViewController
 
+- (IBAction)actionGo:(id)sender;
+- (IBAction)buttonLogout:(id)sender;
 
 @end
 
