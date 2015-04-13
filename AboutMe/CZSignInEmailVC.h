@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 @protocol CZSigninEmailDelegate
 -(void)animationMessageError:(NSString *)msg;
 -(void)showWaiting:(NSString *)label;

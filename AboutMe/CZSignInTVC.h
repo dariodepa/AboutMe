@@ -8,9 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CZSignInTVC : UITableViewController
+@class CZAuthenticationDC;
+@class MBProgressHUD;
+
+@interface CZSignInTVC : UITableViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>{
+    UIActionSheet *takePhotoMenu;
+    UIImagePickerController *imagePickerController;
+    UIImagePickerController *photoLibraryController;
+    CZAuthenticationDC *DC;
+    MBProgressHUD *HUD;
+}
 
 @property (strong, nonatomic) NSString *email;
+
+@property (weak, nonatomic) IBOutlet UIView *viewError;
+@property (weak, nonatomic) IBOutlet UILabel *labelError;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewPhotoUser;
@@ -26,6 +38,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageNameComplete;
 @property (weak, nonatomic) IBOutlet UITextField *textNameComplete;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *buttonPreviou;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *buttonNext;
+@property (strong, nonatomic) IBOutlet UISwitch *switchTermOfUse;
+
 
 - (IBAction)actionPreviou:(id)sender;
+- (IBAction)actionNext:(id)sender;
 @end
