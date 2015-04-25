@@ -7,22 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CZAuthenticationDC.h"
 
-@class CZAuthenticationDC;
 @class MBProgressHUD;
 
-@interface CZSignInTVC : UITableViewController<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>{
+@interface CZSignInTVC : UITableViewController<CZAuthenticationDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>{
     UIActionSheet *takePhotoMenu;
     UIImagePickerController *imagePickerController;
     UIImagePickerController *photoLibraryController;
     CZAuthenticationDC *DC;
     MBProgressHUD *HUD;
+    
+    NSString *facebookId;
+    UIImage *userImage;
+    NSString *userCity;
+    NSString *userName;
+    NSString *userEmail;
+    NSString *userUsername;
+    
+    NSString *errorMessage;
+    UIView *viewError;
+    UILabel *labelError;
 }
 
-@property (strong, nonatomic) NSString *email;
-
-@property (weak, nonatomic) IBOutlet UIView *viewError;
-@property (weak, nonatomic) IBOutlet UILabel *labelError;
+//@property (weak, nonatomic) IBOutlet UIView *viewError;
+//@property (weak, nonatomic) IBOutlet UILabel *labelError;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewPhotoUser;

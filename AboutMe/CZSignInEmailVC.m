@@ -29,8 +29,31 @@
     [self.buttonNext setTitle:NSLocalizedString(@"Avanti", nil) forState:UIControlStateNormal];
     self.textEmail.placeholder = NSLocalizedString(@"Inserisci la tua e-mail", nil);
     [self disableButton:self.buttonNext];
-    [self.textEmail becomeFirstResponder];
+    //[self.textEmail becomeFirstResponder];
     [self addControllChangeTextField:self.textEmail];
+}
+
+-(void)setMessageError:(NSString*)msgError
+{
+    //errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Email non corretta", nil)];//[error localizedDescription];
+    viewError = [[UIView alloc] init];
+    viewError.frame = CGRectMake(0, 0, self.view.frame.size.width, 66);
+    viewError.backgroundColor = [UIColor redColor];
+    viewError.alpha = 0;
+    labelError = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, (self.view.frame.size.width-10), 56)];
+    [labelError setTextColor:[UIColor whiteColor]];
+    [labelError setBackgroundColor:[UIColor clearColor]];
+    [labelError setFont:[UIFont fontWithName: @"Helvetica Neue" size: 14.0f]];
+    labelError.text = msgError;
+    labelError.textAlignment = NSTextAlignmentCenter;
+    labelError.numberOfLines = 3;
+    [viewError addSubview:labelError];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:viewError];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"viewDidAppear SIGNEMAIL");
 }
 
 //--------------------------------------------------------------------//
@@ -69,6 +92,15 @@
     NSLog(@"dismissing keyboard");
     [self.view endEditing:YES];
 }
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSLog(@"textFieldShouldReturn");
+    if(viewError.alpha == 0){
+        [self goNextStep];
+    }
+    return YES;
+}
 //--------------------------------------------------------------------//
 //END TEXTFIELD CONTROLLER
 //--------------------------------------------------------------------//
@@ -82,6 +114,31 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     return [emailTest evaluateWithObject:candidate];
 }
+
+-(void)animationMessageError:(NSString *)msg{
+    //startedAnimation = YES;
+    [self disableButton:self.buttonNext];
+    [self setMessageError:msg];
+    viewError.alpha = 0.0;
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         viewError.alpha = 1.0;
+                     }
+                     completion:^(BOOL finished){
+                         [UIView animateWithDuration:0.5
+                                               delay:2.5
+                                             options: (UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction)
+                                          animations:^{
+                                              viewError.alpha = 0.0;
+                                          }
+                                          completion:^(BOOL finished){
+                                              //startedAnimation = NO;
+                                              [self enableButton:self.buttonNext];
+                                          }];
+                     }];
+}
+
+
 //--------------------------------------------------------------------//
 //END FUNCTIONS
 //--------------------------------------------------------------------//
@@ -89,26 +146,30 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"toSignInUser"]) {
         NSLog(@"prepareForSegue toSignInUser");
-        UINavigationController *nc = [segue destinationViewController];
-        CZSignInTVC *vc = (CZSignInTVC *)[[nc viewControllers] objectAtIndex:0];
-        vc.email = self.textEmail.text;
+        //UINavigationController *nc = [segue destinationViewController];
+        //CZSignInTVC *vc = (CZSignInTVC *)[[nc viewControllers] objectAtIndex:0];
     }
 }
 
 -(void)goNextStep{
+     NSLog(@"goNextStep");
     if([self validEmail:self.textEmail.text]){
         [self performSegueWithIdentifier:@"toSignInUser" sender:self];
     }else{
-        NSString *errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Email non corretta", nil)];//[error localizedDescription];
-        [self.delegate animationMessageError:errorMessage];
+        errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Email non corretta", nil)];//[error localizedDescription];
+        [self animationMessageError:errorMessage];
     }
 }
 
+
 - (IBAction)actionNext:(id)sender {
-     [self goNextStep];
+    if(viewError.alpha == 0){
+        [self goNextStep];
+    }
 }
 
 - (void)dealloc{
     self.textEmail.delegate = nil;
 }
+
 @end

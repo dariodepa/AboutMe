@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "CZAuthenticationVC.h"
+#import "AboutMe-Swift.h"
 
 @interface ViewController ()
 

@@ -7,7 +7,7 @@
 //
 
 #import "CZSignInTVC.h"
-#import "CZAuthenticationDC.h"
+#import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "MBProgressHUD.h"
 
 @interface CZSignInTVC ()
@@ -24,20 +24,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     NSLog(@"viewDidLoad:");
     self.textNameComplete.delegate = self;
     self.textPassword.delegate = self;
     self.textEmail.delegate = self;
     self.textUsername.delegate = self;
     DC = [[CZAuthenticationDC alloc] init];
+    DC.delegate = self;
+    
     //add view message
-    [self.view addSubview:self.viewError];
     [self initialize];
+}
+    
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if([PFUser currentUser]){
+        [self completeProfileFromFacebbok];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    //[self facebookUnlink];
 }
 
 -(void)initialize{
-    if(self.email){
-        self.textEmail.text = self.email;
-    }
     self.imageProfile.userInteractionEnabled = TRUE;
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc]
                                       initWithTarget:self action:@selector(didTapImage)];
@@ -54,38 +64,49 @@
     [self addControllChangeTextField:self.textNameComplete];
     [self addControllChangeTextField:self.textEmail];
     [self addControllChangeTextField:self.textPassword];
-    self.buttonNext.enabled = NO;
+    //self.buttonNext.enabled = NO;
+}
+
+-(void)setMessageError:(NSString*)msgError
+{
+    //errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Email non corretta", nil)];//[error localizedDescription];
+    viewError = [[UIView alloc] init];
+    viewError.frame = CGRectMake(0, 0, self.view.frame.size.width, 66);
+    viewError.backgroundColor = [UIColor redColor];
+    viewError.alpha = 0;
+    labelError = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, (self.view.frame.size.width-10), 56)];
+    [labelError setTextColor:[UIColor whiteColor]];
+    [labelError setBackgroundColor:[UIColor clearColor]];
+    [labelError setFont:[UIFont fontWithName: @"Helvetica Neue" size: 14.0f]];
+    labelError.text = msgError;
+    labelError.textAlignment = NSTextAlignmentCenter;
+    labelError.numberOfLines = 3;
+    [viewError addSubview:labelError];
+    [[[UIApplication sharedApplication] keyWindow] addSubview:viewError];
 }
 
 //--------------------------------------------------------------------//
 //START FUNCTIONS
 //--------------------------------------------------------------------//
 -(void)animationMessageError:(NSString *)msg{
-    NSLog(@"animationMessageError: %@", msg);
-    //CGRect startFrame = self.viewError.frame;
-    CGRect startFrame = CGRectMake(0, -50,  self.view.frame.size.width, 50);
-    CGRect endFrame = CGRectMake(0, 0,  self.view.frame.size.width, 50);
-    self.viewError.frame = startFrame;
-    
-    self.labelError.text = msg;
-    self.viewError.alpha = 0.0;
+    //startedAnimation = YES;
+    //self.buttonNext.enabled = NO;
+    [self setMessageError:msg];
+    viewError.alpha = 0.0;
     [UIView animateWithDuration:0.5
                      animations:^{
-                         self.viewError.alpha = 0.9;
-                         self.viewError.frame = endFrame;
+                         viewError.alpha = 1.0;
                      }
                      completion:^(BOOL finished){
-                         NSLog(@"self.viewError: %@", self.viewError);
-                         [UIView animateWithDuration:3.0
+                         [UIView animateWithDuration:0.5
+                                               delay:2.5
+                                             options: (UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction)
                                           animations:^{
-                                              self.viewError.alpha = 1.0;
+                                              viewError.alpha = 0.0;
                                           }
                                           completion:^(BOOL finished){
-                                              [UIView animateWithDuration:0.5
-                                                               animations:^{
-                                                                   self.viewError.alpha = 0.0;
-                                                                   NSLog(@"self.viewError: %@", self.viewError);
-                                                               }];
+                                              //startedAnimation = NO;
+                                              //self.buttonNext.enabled = YES;
                                           }];
                      }];
 }
@@ -147,7 +168,7 @@
 }
 
 -(void)textFieldDidChange:(UITextField *)textField{
-    if(self.textUsername.text.length==0 || self.textNameComplete.text.length==0 || self.textPassword.text.length==0 || self.textEmail.text==0){
+    if(self.textUsername.text.length==0 || self.textNameComplete.text.length==0 || self.textEmail.text==0){//|| self.textPassword.text.length==0
         self.buttonNext.enabled = NO;
     }else{
         self.buttonNext.enabled = YES;
@@ -195,12 +216,10 @@
 
 -(BOOL)validateForm {
     NSLog(@"switchTermOfUse STATE: %u", self.switchTermOfUse.on);
-    NSString *errorMessage ;
     NSString *usernameValue = [self.textUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *nameValue = [self.textNameComplete.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *emailValue = [self.textEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *passwordValue = [self.textPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
     if (![self validEmail:emailValue]) {
         self.imageEmail.image = [UIImage imageNamed:@"mail_red"];
         errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Email errata", nil)];
@@ -217,7 +236,7 @@
     }else{
         self.imageUsername.image = [UIImage imageNamed:@"username_green"];
     }
-    if([passwordValue isEqualToString:@""] || passwordValue.length<MIN_CHARS_PASSWORD) {
+    if(facebookId.length<=0 && ([passwordValue isEqualToString:@""] || passwordValue.length<MIN_CHARS_PASSWORD)) {
         self.imagePassword.image = [UIImage imageNamed:@"password_red"];
         errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Password non valida. La password deve essere di almeno %d caratteri", nil), MIN_CHARS_PASSWORD];
         [self animationMessageError:errorMessage];
@@ -327,49 +346,6 @@
     [DC saveImageWithoutDelegate:image nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
 }
 
-
-//-(void)loadImageProfile{
-//    imageTool.delegate = self;
-//    if([[PFUser currentUser] objectForKey:@"image"] && !([[PFUser currentUser] objectForKey:@"image"]==nil)){
-//        HUD = [[MBProgressHUD alloc] initWithView:self.photoProfile];
-//        [self.photoProfile addSubview:HUD];
-//        HUD.mode = MBProgressHUDModeDeterminate;
-//        HUD.delegate = self;
-//        [HUD show:YES];
-//        PFFile *imageView = [[PFUser currentUser] objectForKey:@"image"];
-//        [imageTool loadImage:imageView];
-//        NSLog(@"11111111-load image");
-//    }else{
-//        [HUD hide:YES];
-//        UIImage *image = [UIImage imageNamed:@"noProfile.jpg"];
-//        CGSize newSize = CGSizeMake(280,280);
-//        self.photoProfile.image =[DDPImage scaleAndCropImage:image intoSize:newSize];
-//        [imageTool customRoundImage:self.photoProfile];
-//        self.applicationContext.myImageProfile = image;
-//    }
-//}
-
-
-//+++++++++++++++++++++++++++++++++++++++//
-//DELEGATE DDPImageDownloaderDelegate
-//+++++++++++++++++++++++++++++++++++++++//
-//-(void)refreshImage:(NSData *)imageData
-//{
-//    [HUD hide:YES];
-//    UIImage *image = [UIImage imageWithData:imageData];
-//    CGSize newSize = CGSizeMake(280,280);
-//    self.photoProfile.image =[DDPImage scaleAndCropImage:image intoSize:newSize];
-//    [imageTool customRoundImage:self.photoProfile];
-//    self.applicationContext.myImageProfile = image;
-//    [imageTool saveImageWithoutDelegate:self.photoProfile.image nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
-//}
-//
-//- (void)setProgressBar:(NSIndexPath *)indexPath progress:(float)progress
-//{
-//    HUD.progress = progress;
-//    NSLog(@"progress %f", progress);
-//}
-//+++++++++++++++++++++++++++++++++++++++//
 //-------------------------------------------------------------------//
 //END FUNCTION IMAGE PROFILE
 //-------------------------------------------------------------------//
@@ -378,18 +354,158 @@
 //--------------------------------------------------------------------//
 //START SIGNIN
 //--------------------------------------------------------------------//
-- (void)registrationUser {
+-(void)facebookUnlink{
+    [PFFacebookUtils unlinkUserInBackground:[PFUser currentUser] block:^(BOOL succeeded, NSError *error) {
+        if (succeeded) {
+            NSLog(@"The user is no longer associated with their Facebook account.");
+        }
+    }];
+}
+
+-(void)completeProfileFromFacebbok{
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        NSLog(@"completeProfileFacebook...%@",result);
+        if (!error) {
+            NSDictionary *userData = (NSDictionary *)result;
+            NSLog(@"userData ------------> %@", userData);
+            
+            facebookId = userData[@"id"];
+            userName = userData[@"name"];
+            userEmail = userData[@"email"];
+            userCity = userData[@"location"][@"name"];
+            
+            self.textNameComplete.text = userName;
+            self.textEmail.text = userEmail;
+            //[self registrationUser];
+            
+            NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", facebookId]];
+            if ([pictureURL absoluteString]) {
+                //HUD.hidden=NO;
+                NSLog(@"pictureURL %@", [pictureURL absoluteString]);
+                NSURL *url = [NSURL URLWithString:[pictureURL absoluteString]];
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                PFFile *imageView = (PFFile *)[PFFile fileWithName:@"imageProfile" data:imageData];
+                [DC loadImage:imageView];
+            }
+            
+            [self getCoverImage];
+            
+        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"]) {
+            NSLog(@"The facebook session was invalidated");
+        } else {
+            NSLog(@"Some other error: %@", error);
+        }
+    }];
+}
+
+-(void)getCoverImage
+{
+    NSString *urlRequest =[[NSString alloc] initWithFormat:@"/%@?fields=cover", facebookId];
+    [FBRequestConnection startWithGraphPath:urlRequest //@"...?fields={fieldname_of_type_CoverPhoto}"
+                          completionHandler:^(
+                                              FBRequestConnection *connection,
+                                              id result,
+                                              NSError *error
+                                              ) {
+                            /* handle the result */
+                            NSDictionary *userCover = [result valueForKey:@"cover"];
+                            NSString *coverURL = [userCover valueForKey:@"source"];
+                            NSLog(@"result! %@",coverURL);
+                            //NSURL *coverURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/?fields=cover", facebookId]];
+                            NSURL *url = [NSURL URLWithString:coverURL];
+                            NSData *imageData = [NSData dataWithContentsOfURL:url];
+                            PFFile *imageView = (PFFile *)[PFFile fileWithName:@"imageCover" data:imageData];
+                            [DC loadImage:imageView];
+
+    }];
+}
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+//DELEGATE FUNCTIONS DC
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+-(void)refreshImage:(NSData *)imageData name:(NSString*)name
+{
+    UIImage *image = [UIImage imageWithData:imageData];
+    NSLog(@"IMAGES DATA: %@",name);//[HUD hide:YES];
+    if([name isEqualToString:@"imageCover"]){
+        self.imageBackground.image = image;
+        [DC animationAlpha:self.imageBackground];
+    }
+    else{
+        self.imageProfile.image = image;
+        [CZAuthenticationDC arroundImage:(self.imageProfile.frame.size.height/2) borderWidth:0.0 layer:[self.imageProfile layer]];
+        //CGSize newSize = CGSizeMake(280,280);
+        //self.photoProfile.image =[DDPImage scaleAndCropImage:image intoSize:newSize];
+        //[imageTool customRoundImage:self.photoProfile];
+        [DC saveImageWithoutDelegate:image nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
+    }
+}
+
+- (void)setProgressBar:(NSIndexPath *)indexPath progress:(float)progress
+{
+    HUD.progress = progress;
+    NSLog(@"progress %f", progress);
+}
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+-(void)completeProfile {
     [self showWaiting:NSLocalizedString(@"Registrazione in corso...", nil)];
     NSString *nameValue = [self.textNameComplete.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *usernameValue = [self.textUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *emailValue = [self.textEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *passwordValue = [self.textPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    PFUser *user = [PFUser currentUser];
+    user.username = usernameValue;
+    user.password = passwordValue;
+    user.email = emailValue;
+    if(userName)user[@"name"] = nameValue;
+    if(facebookId)user[@"facebookId"] = facebookId;
+    if(userCity)user[@"city"] = userCity;
+    //[user saveEventually];
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self hideWaiting];
+        if (!error) {
+            NSLog(@"ENTRATO");
+            [self saveSessionToken];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            // Hooray! Let them use the app now.
+        } else {
+            errorMessage = [error userInfo][@"error"];
+            NSNumber *errorCode = [error userInfo][@"code"];
+            if([errorCode  isEqual: @202]){
+                errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Username '%@' già in uso", nil), usernameValue];
+                self.imageUsername.image = [UIImage imageNamed:@"username_red"];
+            }else if([errorCode  isEqual: @203]){
+                errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Email '%@' già presente", nil), emailValue];
+                self.imageEmail.image = [UIImage imageNamed:@"email_red"];
+            }
+            [self animationMessageError:errorMessage];
+        }
+    }];
+
+}
+
+
+
+
+-(void)registrationUser {
+    [self showWaiting:NSLocalizedString(@"Registrazione in corso...", nil)];
+    NSString *nameValue = [self.textNameComplete.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *usernameValue = [self.textUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *emailValue = [self.textEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *passwordValue = [self.textPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     PFUser *user = [PFUser user];
     user.username = usernameValue;
     user.password = passwordValue;
     user.email = emailValue;
-    // other fields can be set just like with PFObject
-    user[@"name"] = nameValue;
+    if(userName)user[@"name"] = nameValue;
+//    if(facebookId)user[@"facebookId"] = facebookId;
+//    if(userCity)user[@"city"] = userCity;
+    
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         [self hideWaiting];
         if (!error) {
@@ -398,8 +514,8 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             // Hooray! Let them use the app now.
         } else {
-            NSString *errorMessage = [error userInfo][@"error"];
-                NSNumber *errorCode = [error userInfo][@"code"];
+            errorMessage = [error userInfo][@"error"];
+            NSNumber *errorCode = [error userInfo][@"code"];
             if([errorCode  isEqual: @202]){
                 errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Username '%@' già in uso", nil), usernameValue];
                 self.imageUsername.image = [UIImage imageNamed:@"username_red"];
@@ -413,6 +529,7 @@
 }
 
 -(void)saveSessionToken{
+    NSLog(@"saveSessionToken");
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *sessionToken = [PFUser currentUser].sessionToken;
     [defaults setObject:sessionToken forKey:@"sessionToken"];
@@ -431,8 +548,8 @@
     UITableViewCell *cell=(UITableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
     NSString *identifierCell = [cell reuseIdentifier];
     if([identifierCell isEqualToString:@"idCellPassword"]){
-        if(self.email){
-            //return 0.0;
+        if([PFUser currentUser]){
+            return 0.0;
        }
     }
     if([identifierCell isEqualToString:@"idCellHeader"]){
@@ -448,12 +565,25 @@
 
 
 - (IBAction)actionPreviou:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if([PFUser currentUser]){
+        [self showWaiting:nil];
+        [[PFUser currentUser] deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [PFUser logOut];
+            [self hideWaiting];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (IBAction)actionNext:(id)sender {
     if([self validateForm]){
-        [self registrationUser];
+        if([PFUser currentUser]){
+            [self completeProfile];
+        }else{
+            [self registrationUser];
+        }
     }
 }
 @end

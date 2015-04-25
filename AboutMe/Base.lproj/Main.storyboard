@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="hlo-FT-NmL">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
@@ -41,6 +42,15 @@
                                     <action selector="buttonLogout:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="8gO-T4-q37"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdy-YQ-Zi2">
+                                <rect key="frame" x="117" y="269" width="63" height="30"/>
+                                <state key="normal" title="PROFILE">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="UVl-Eq-iun" kind="push" id="LUn-to-QXX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -68,7 +78,120 @@
             </objects>
             <point key="canvasLocation" x="232" y="225"/>
         </scene>
+        <!--ProfileVC-->
+        <scene sceneID="JNN-yx-9Yx">
+            <objects>
+                <viewController id="UVl-Eq-iun" customClass="profileVC" customModule="AboutMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xYy-vz-RRY"/>
+                        <viewControllerLayoutGuide type="bottom" id="x0M-qz-kSG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="91f-NW-dGd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tWN-9Q-ZSv" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="107"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jane Stormtrooper" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psw-nW-DAp">
+                                        <rect key="frame" x="86" y="104" width="148" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="Psw-nW-DAp" secondAttribute="centerX" id="9wK-NB-hMG"/>
+                                    <constraint firstItem="Psw-nW-DAp" firstAttribute="top" secondItem="tWN-9Q-ZSv" secondAttribute="top" constant="104" id="ECu-B5-4U7"/>
+                                    <constraint firstAttribute="height" constant="107" id="Fw9-ko-ABG"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzO-oC-3L8" userLabel="Scrollview">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" image="profile1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="LdO-e0-oyb" userLabel="AvatarImage">
+                                        <rect key="frame" x="8" y="79" width="69" height="69"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jane Stormtrooper" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIT-GB-iCt">
+                                        <rect key="frame" x="8" y="156" width="224" height="22"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                        <color key="textColor" red="0.16078431369999999" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ymn-Q9-TQ1" userLabel="FollowButton" customClass="TWTButton" customModule="AboutMe" customModuleProvider="target">
+                                        <rect key="frame" x="198" y="118" width="112" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Irx-xp-Z6d"/>
+                                            <constraint firstAttribute="width" constant="112" id="Izx-AU-xMH"/>
+                                        </constraints>
+                                        <state key="normal" title="Follow">
+                                            <color key="titleColor" red="0.33333333329999998" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="shamelessActionThatBringsYouToMyTwitterProfile" destination="UVl-Eq-iun" eventType="touchUpInside" id="nap-cf-HAb"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="@bitwaker" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEz-up-1ti" userLabel="TwitterUsername">
+                                        <rect key="frame" x="8" y="177" width="128" height="21"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                        <color key="textColor" red="0.40000000000000002" green="0.41960784309999999" blue="0.49803921569999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="love" translatesAutoresizingMaskIntoConstraints="NO" id="CTo-vu-9RU" userLabel="Love">
+                                        <rect key="frame" x="141" y="404" width="32" height="32"/>
+                                        <color key="backgroundColor" red="0.30588235289999999" green="0.42352941179999998" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GJZ-R5-Xxk" userLabel="Sizer">
+                                        <rect key="frame" x="0.0" y="477" width="320" height="286"/>
+                                        <color key="backgroundColor" red="0.90190668709999999" green="0.158326049" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="286" id="KM5-aZ-m4O"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="CTo-vu-9RU" firstAttribute="top" secondItem="KzO-oC-3L8" secondAttribute="top" constant="404" id="5NX-56-eUD"/>
+                                    <constraint firstAttribute="trailing" secondItem="GJZ-R5-Xxk" secondAttribute="trailing" id="BQ7-w3-muz"/>
+                                    <constraint firstAttribute="centerX" secondItem="CTo-vu-9RU" secondAttribute="centerX" constant="3" id="Hu5-3M-PLN"/>
+                                    <constraint firstItem="GJZ-R5-Xxk" firstAttribute="top" secondItem="KzO-oC-3L8" secondAttribute="top" constant="477" id="ghF-EZ-ZtB"/>
+                                    <constraint firstItem="ymn-Q9-TQ1" firstAttribute="top" secondItem="KzO-oC-3L8" secondAttribute="top" constant="118" id="kn5-wK-ILW"/>
+                                    <constraint firstItem="GJZ-R5-Xxk" firstAttribute="leading" secondItem="KzO-oC-3L8" secondAttribute="leading" id="lnK-Fk-s06"/>
+                                    <constraint firstAttribute="bottom" secondItem="GJZ-R5-Xxk" secondAttribute="bottom" constant="37" id="vAe-jh-BnQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="ymn-Q9-TQ1" secondAttribute="trailing" constant="10" id="xgd-3R-g9a"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="GJZ-R5-Xxk" secondAttribute="width" id="DNN-fI-Vb5"/>
+                            <constraint firstAttribute="trailing" secondItem="tWN-9Q-ZSv" secondAttribute="trailing" id="IZo-sS-myL"/>
+                            <constraint firstItem="KzO-oC-3L8" firstAttribute="top" secondItem="xYy-vz-RRY" secondAttribute="bottom" constant="-64" id="ROL-qG-Dyf"/>
+                            <constraint firstItem="tWN-9Q-ZSv" firstAttribute="leading" secondItem="91f-NW-dGd" secondAttribute="leading" id="TsT-Fv-LWc"/>
+                            <constraint firstAttribute="trailing" secondItem="KzO-oC-3L8" secondAttribute="trailing" id="bIs-UD-KjW"/>
+                            <constraint firstItem="tWN-9Q-ZSv" firstAttribute="top" secondItem="xYy-vz-RRY" secondAttribute="bottom" constant="-20" id="mbp-6q-AzS"/>
+                            <constraint firstItem="KzO-oC-3L8" firstAttribute="leading" secondItem="91f-NW-dGd" secondAttribute="leading" id="qFx-f4-F3J"/>
+                            <constraint firstItem="x0M-qz-kSG" firstAttribute="top" secondItem="KzO-oC-3L8" secondAttribute="bottom" constant="-232" id="vBI-Y6-iJv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="sum-ak-GhK"/>
+                    <connections>
+                        <outlet property="avatarImage" destination="LdO-e0-oyb" id="Le8-S0-2jH"/>
+                        <outlet property="header" destination="tWN-9Q-ZSv" id="JRk-D3-aex"/>
+                        <outlet property="headerLabel" destination="Psw-nW-DAp" id="tpB-4l-FjB"/>
+                        <outlet property="scrollView" destination="KzO-oC-3L8" id="LoJ-vv-0QF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Cs-PH-MDs" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1449" y="225"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="love" width="32" height="32"/>
+        <image name="profile1.jpg" width="175" height="175"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

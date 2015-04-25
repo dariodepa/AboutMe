@@ -17,6 +17,9 @@
 @end
 
 @interface CZLoginVC : UIViewController<UITextFieldDelegate>{
+    NSString *errorMessage;
+    UIView *viewError;
+    UILabel *labelError;
 }
 
 @property (nonatomic, assign) id <CZLoginDelegate> delegate;
