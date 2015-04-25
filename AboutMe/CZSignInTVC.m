@@ -9,13 +9,12 @@
 #import "CZSignInTVC.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "MBProgressHUD.h"
+#import "DDPWebPagesVC.h"
 
 @interface CZSignInTVC ()
 @end
 
 @implementation CZSignInTVC
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -38,9 +37,7 @@
     
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if([PFUser currentUser]){
-        [self completeProfileFromFacebbok];
-    }
+     NSLog(@"viewWillAppearxxx");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -48,6 +45,7 @@
 }
 
 -(void)initialize{
+    settings_config = [self readerPlistForSettings];
     self.imageProfile.userInteractionEnabled = TRUE;
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc]
                                       initWithTarget:self action:@selector(didTapImage)];
@@ -60,11 +58,18 @@
     self.textEmail.placeholder = NSLocalizedString(@"Email", nil);
     self.textPassword.placeholder = NSLocalizedString(@"Password", nil);
     
+    if(self.stringEmail){
+        self.textEmail.text = self.stringEmail;
+    }
     [self addGestureRecognizerToView];
     [self addControllChangeTextField:self.textNameComplete];
     [self addControllChangeTextField:self.textEmail];
     [self addControllChangeTextField:self.textPassword];
     //self.buttonNext.enabled = NO;
+    
+    if([PFUser currentUser]){
+        [self completeProfileFromFacebbok];
+    }
 }
 
 -(void)setMessageError:(NSString*)msgError
@@ -83,6 +88,12 @@
     labelError.numberOfLines = 3;
     [viewError addSubview:labelError];
     [[[UIApplication sharedApplication] keyWindow] addSubview:viewError];
+}
+
+-(NSDictionary *)readerPlistForSettings{
+    NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"settingsAuthentication" ofType:@"plist"];
+    NSDictionary *plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistCatPath];
+    return [plistDictionary objectForKey:@"Settings"];
 }
 
 //--------------------------------------------------------------------//
@@ -168,15 +179,16 @@
 }
 
 -(void)textFieldDidChange:(UITextField *)textField{
-    if(self.textUsername.text.length==0 || self.textNameComplete.text.length==0 || self.textEmail.text==0){//|| self.textPassword.text.length==0
-        self.buttonNext.enabled = NO;
-    }else{
-        self.buttonNext.enabled = YES;
-    }
+//    if(self.textUsername.text.length==0 || self.textNameComplete.text.length==0 || self.textEmail.text==0){//|| self.textPassword.text.length==0
+//        self.buttonNext.enabled = NO;
+//    }else{
+//        self.buttonNext.enabled = YES;
+//    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     NSLog(@"textFieldDidBeginEditing");
+    self.tableView.contentOffset = CGPointMake(0, - (self.tableView.contentInset.top-10));
     if(self.textUsername.text.length==0){
         self.imageUsername.image = [UIImage imageNamed:@"username"];
     }
@@ -198,7 +210,8 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     NSLog(@"textFieldShouldReturn");
-    [textField resignFirstResponder];
+    [self previou];
+    //[textField resignFirstResponder];
     return YES;
 }
 //--------------------------------------------------------------------//
@@ -338,11 +351,8 @@
     if (!image) {
         image = [UIImage imageNamed:@"noProfile.jpg"];
     }
+    [CZAuthenticationDC arroundImage:(self.imageProfile.frame.size.height/2) borderWidth:0.0 layer:[self.imageProfile layer]];
     self.imageProfile.image = image;
-    //CGSize newSize = CGSizeMake(280,280);
-    //self.photoProfile.image = [DDPImage scaleAndCropImage:image intoSize:newSize];
-    //[imageTool customRoundImage:self.photoProfile];
-    //self.applicationContext.myImageProfile = image;
     [DC saveImageWithoutDelegate:image nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
 }
 
@@ -470,7 +480,7 @@
         if (!error) {
             NSLog(@"ENTRATO");
             [self saveSessionToken];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self performSegueWithIdentifier:@"unwindToAuthenticationVC" sender:self];
             // Hooray! Let them use the app now.
         } else {
             errorMessage = [error userInfo][@"error"];
@@ -487,8 +497,6 @@
     }];
 
 }
-
-
 
 
 -(void)registrationUser {
@@ -511,7 +519,12 @@
         if (!error) {
             NSLog(@"ENTRATO");
             [self saveSessionToken];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            //[self dismissViewControllerAnimated:YES completion:nil];
+            //[self dismissViewControllerAnimated:YES completion:^{
+                /* do something when the animation is completed */
+                [self performSegueWithIdentifier:@"unwindToAuthenticationVC" sender:self];
+            //}];
+            //[self.navigationController popToRootViewControllerAnimated:YES];
             // Hooray! Let them use the app now.
         } else {
             errorMessage = [error userInfo][@"error"];
@@ -558,13 +571,20 @@
     return 40.0;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"toWebView"]) {
+        NSLog(@"prepareForSegue toWebView");
+        UINavigationController *nc = [segue destinationViewController];
+        DDPWebPagesVC *vc = (DDPWebPagesVC *)[[nc viewControllers] objectAtIndex:0];
+        //DDPWebPagesVC *vc = (DDPWebPagesVC *)[segue destinationViewController];
+        vc.urlPage = [settings_config objectForKey:@"urlPrivacyPage"];
+        vc.titlePage = [settings_config objectForKey:@"titlePrivacyPage"];
+    }
+}
 //-------------------------------------------------------------------//
 //END FUNCTION BUILD TABLE
 //-------------------------------------------------------------------//
-
-
-
-- (IBAction)actionPreviou:(id)sender {
+-(void)previou{
     if([PFUser currentUser]){
         [self showWaiting:nil];
         [[PFUser currentUser] deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -575,6 +595,16 @@
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+
+}
+
+
+- (IBAction)actionPrivacy:(id)sender {
+    [self performSegueWithIdentifier:@"toWebView" sender:self];
+}
+
+- (IBAction)actionPreviou:(id)sender {
+    [self previou];
 }
 
 - (IBAction)actionNext:(id)sender {

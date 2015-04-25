@@ -146,8 +146,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"toSignInUser"]) {
         NSLog(@"prepareForSegue toSignInUser");
-        //UINavigationController *nc = [segue destinationViewController];
-        //CZSignInTVC *vc = (CZSignInTVC *)[[nc viewControllers] objectAtIndex:0];
+        UINavigationController *nc = [segue destinationViewController];
+        CZSignInTVC *vc = (CZSignInTVC *)[[nc viewControllers] objectAtIndex:0];
+        vc.stringEmail = self.textEmail.text;
     }
 }
 

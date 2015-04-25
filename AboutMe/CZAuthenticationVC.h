@@ -10,17 +10,20 @@
 #import <Parse/Parse.h>
 #import "CZLoginVC.h"
 #import "CZSignInEmailVC.h"
-
+#import "CZAuthenticationDC.h"
 @class MBProgressHUD;
 
 
-@interface CZAuthenticationVC : UIViewController<CZLoginDelegate>{
+@interface CZAuthenticationVC : UIViewController<CZLoginDelegate, CZAuthenticationDelegate>{
     MBProgressHUD *HUD;
+    CZAuthenticationDC *DC;
     bool animationActive;
     NSString *errorMessage;
     UIView *viewError;
     UILabel *labelError;
     CGFloat posXTriangleStart;
+    NSDictionary *dicHeader;
+    NSString *imageBackground;
 }
 
 
@@ -35,12 +38,16 @@
 //@property (weak, nonatomic) IBOutlet UILabel *labelError;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFacebookLogin;
 @property (strong, nonatomic) IBOutlet UIImageView *imageTriangle;
+@property (strong, nonatomic) IBOutlet UIButton *buttonExit;
+
 
 - (IBAction)actionLogin:(id)sender;
 - (IBAction)actionSignin:(id)sender;
 - (IBAction)actionFacebookLogin:(id)sender;
+- (IBAction)actionExit:(id)sender;
 
--(void)animationMessageError:(NSString *)msg;
+- (IBAction)unwindToAuthenticationVC:(UIStoryboardSegue*)sender;
+- (void)animationMessageError:(NSString *)msg;
 
 
 @end

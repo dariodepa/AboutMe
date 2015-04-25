@@ -25,31 +25,39 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self deleteSessionToken];
-    NSLog(@"viewDidLoad %f",self.containerB.frame.origin.x);
+    if([PFUser currentUser]){
+        [[PFUser currentUser] deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            [PFUser logOut];
+            [self deleteSessionToken];
+        }];
+    }
+    NSLog(@"SOPRA DA ELIMINARE!!!!!!!!!!!!!!!!!! %f",self.containerB.frame.origin.x);
+    DC = [[CZAuthenticationDC alloc] init];
+    DC.delegate = self;
+    self.imageHeaderBackground.image = nil;
     [self initialize];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setStartPosition];
     NSLog(@"viewWillAppear %f",self.containerB.frame.origin.x);
-    posXTriangleStart = (self.buttonAccedi.frame.origin.x+self.buttonAccedi.frame.size.width/2)-self.imageTriangle.frame.size.width/2;
-    self.imageTriangle.frame = CGRectMake(posXTriangleStart, self.imageTriangle.frame.origin.y, self.imageTriangle.frame.size.width, self.imageTriangle.frame.size.height);
-    //[self checkAutenticate]; da attivare al pulsante chiudi
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    posXTriangleStart = (self.buttonAccedi.frame.origin.x+self.buttonAccedi.frame.size.width/2)-self.imageTriangle.frame.size.width/2;
-//    self.imageTriangle.frame = CGRectMake(posXTriangleStart, self.imageTriangle.frame.origin.y, self.imageTriangle.frame.size.width, self.imageTriangle.frame.size.height);
-    //[self.containerB setHidden:YES];
-    self.containerB.frame = CGRectMake(-self.view.frame.size.width, self.containerB.frame.origin.y, self.containerB.frame.size.width, self.containerB.frame.size.height);
+    [self setStartPosition];
+    [self loadBackgroundCover];
     NSLog(@"viewDidAppear %f",self.containerB.frame.origin.x);
 }
 
+//--------------------------------------------------------------------//
+//START INITIALIZE VIEW
+//--------------------------------------------------------------------//
 -(void)initialize{
     animationActive = NO;
     [self setMessageError];
+    [self setHeader];
     [self.buttonAccedi setTitle:NSLocalizedString(@"ACCEDI", nil) forState:UIControlStateNormal];
     [self.buttonIscriviti setTitle:NSLocalizedString(@"ISCRIVITI", nil) forState:UIControlStateNormal];
     NSLog(@"children : %@", self.childViewControllers);
@@ -58,6 +66,7 @@
     CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
     contentLoginVC.delegate = self;
     [self addGestureRecognizerToView];
+    dicHeader =[self readerPlistForHeader];
 }
 
 -(void)setMessageError
@@ -76,6 +85,95 @@
     [viewError addSubview:labelError];
     [[[UIApplication sharedApplication] keyWindow] addSubview:viewError];
 }
+
+-(void)setHeader{
+    dicHeader = [self readerPlistForHeader];
+    NSLog(@"dicHeader %@",dicHeader);
+    NSString *title = [dicHeader objectForKey:@"title"];
+    NSString *titleFont = [dicHeader objectForKey:@"titleFont"];
+    CGFloat titleFontSize = [[dicHeader objectForKey:@"titleFontSize"] floatValue];
+    NSString *titleFontColor = [dicHeader objectForKey:@"titleFontColor"];
+    NSString *description = [dicHeader objectForKey:@"description"];
+    NSString *descriptionFont = [dicHeader objectForKey:@"descriptionFont"];
+    CGFloat descriptionFontSize = [[dicHeader objectForKey:@"descriptionFontSize"] floatValue];
+    NSString *descriptionFontColor = [dicHeader objectForKey:@"descriptionFontColor"];
+    NSString *buttonFont = [dicHeader objectForKey:@"buttonFont"];
+    CGFloat buttonFontSize = [[dicHeader objectForKey:@"buttonFontSize"] floatValue];
+    NSString *buttonFontColor = [dicHeader objectForKey:@"buttonFontColor"];
+    self.labelHeaderTitle.text = title;
+    [self customFontLabel:self.labelHeaderTitle font:titleFont fontSize:titleFontSize color:titleFontColor];
+    self.labelHeaderDescription.text = description;
+    [self customFontLabel:self.labelHeaderDescription font:descriptionFont fontSize:descriptionFontSize color:descriptionFontColor];
+    //[self.buttonAccedi setTitle:NSLocalizedString(@"ACCEDI", nil) forState:UIControlStateNormal];
+    [self customFontLabel:self.buttonAccedi.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
+    //[self.buttonIscriviti setTitle:NSLocalizedString(@"ISCRIVITI", nil) forState:UIControlStateNormal];
+    [self customFontLabel:self.buttonIscriviti.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
+    NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
+    imageBackground = [dicHeader objectForKey:@"imageBackground"];
+    if(colorBackground){
+       self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
+    }
+}
+
+-(void)loadBackgroundCover{
+    if(imageBackground && self.imageHeaderBackground.image == nil){
+        NSURL *url = [NSURL URLWithString:imageBackground];
+        NSData *imageData = [NSData dataWithContentsOfURL:url];
+        NSLog(@"imageData: %@",imageData);//[HUD hide:YES];
+        PFFile *imageView = (PFFile *)[PFFile fileWithName:@"imageCover" data:imageData];
+        [DC loadImage:imageView];
+    }
+}
+
+-(void)setStartPosition{
+    posXTriangleStart = (self.buttonAccedi.frame.origin.x+self.buttonAccedi.frame.size.width/2)-self.imageTriangle.frame.size.width/2;
+    self.imageTriangle.frame = CGRectMake(posXTriangleStart, self.imageTriangle.frame.origin.y, self.imageTriangle.frame.size.width, self.imageTriangle.frame.size.height);
+    self.containerB.frame = CGRectMake(-self.view.frame.size.width, self.containerB.frame.origin.y, self.containerB.frame.size.width, self.containerB.frame.size.height);
+}
+
+-(NSDictionary *)readerPlistForHeader{
+    NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"settingsAuthentication" ofType:@"plist"];
+    NSDictionary *plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistCatPath];
+    return [plistDictionary objectForKey:@"Header"];
+}
+
+-(void)customFontLabel:(UILabel*)label font:(NSString*)font fontSize:(CGFloat)fontSize color:(NSString*)color {
+    [label setFont:[UIFont fontWithName:font size:fontSize]];
+    UIColor *textColor = [CZAuthenticationDC colorWithHexString:color];
+    [label setTextColor:textColor];
+}
+//--------------------------------------------------------------------//
+//END INITIALIZE VIEW
+//--------------------------------------------------------------------//
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+//START DELEGATE FUNCTIONS DC
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+-(void)refreshImage:(NSData *)imageData name:(NSString*)name
+{
+    UIImage *image = [UIImage imageWithData:imageData];
+    NSLog(@"IMAGES DATA: %@",name);//[HUD hide:YES];
+    if([name isEqualToString:@"imageCover"]){
+        self.imageHeaderBackground.alpha = 0.0;
+        self.imageHeaderBackground.image = image;
+       // [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
+        //self.imageHeaderBackground.contentMode = UIViewContentModeCenter;
+        self.imageHeaderBackground.contentMode = UIViewContentModeScaleAspectFill;
+        [DC animationAlpha:self.imageHeaderBackground];
+    }
+}
+
+- (void)setProgressBar:(NSIndexPath *)indexPath progress:(float)progress
+{
+    HUD.progress = progress;
+    NSLog(@"progress %f", progress);
+}
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+//END DELEGATE FUNCTIONS DC
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+
+
 
 //--------------------------------------------------------------------//
 //START TEXTFIELD CONTROLLER
@@ -101,7 +199,6 @@
 //--------------------------------------------------------------------//
 //START FUNCTIONS
 //--------------------------------------------------------------------//
-
 -(void)animationMessageError:(NSString *)msg{
     viewError.alpha = 0.0;
     labelError.text = msg;
@@ -200,14 +297,13 @@
                      }];
 }
 
-
 //--------------------------------------------------------------------//
 //END FUNCTIONS
 //--------------------------------------------------------------------//
 
 
 //--------------------------------------------------------------------//
-//START SEND LOGIN AND PSW
+//START SESSION
 //--------------------------------------------------------------------//
 -(void)saveSessionToken{
     NSLog(@"ENTRATO");
@@ -229,14 +325,21 @@
     if (!sessionToken) {
         NSLog(@"toLogin %@",self);
         if([PFUser currentUser]){
+            [self showWaiting:nil];
             [[PFUser currentUser] deleteInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                [self hideWaiting];
                 [PFUser logOut];
+                //[self dismissViewControllerAnimated:YES completion:nil];
             }];
+        }else{
+            //[self dismissViewControllerAnimated:YES completion:nil];
         }
+    }else{
+        //[self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 //--------------------------------------------------------------------//
-//END SEND LOGIN AND PSW
+//END SESSION
 //--------------------------------------------------------------------//
 
 
@@ -275,7 +378,6 @@
         }
     }];
 }
-
 //--------------------------------------------------------------------//
 //END FACEBOOK LOGIN
 //--------------------------------------------------------------------//
@@ -303,7 +405,7 @@
 
 
 - (IBAction)actionLogin:(id)sender {
-    NSLog(@"actionLogin %f",self.containerB.frame.origin.x);
+    NSLog(@"actionSignin %f - %f - %f",self.containerB.frame.origin.x, self.imageTriangle.frame.origin.x, posXTriangleStart );
     if(!(self.imageTriangle.frame.origin.x == posXTriangleStart)  && animationActive==NO ){
         [self animationChangePage:self.containerA];
     }
@@ -311,7 +413,7 @@
 }
 
 - (IBAction)actionSignin:(id)sender {
-    NSLog(@"actionSignin %f",self.containerB.frame.origin.x );
+    NSLog(@"actionSignin %f - %f - %f",self.containerB.frame.origin.x, self.imageTriangle.frame.origin.x, posXTriangleStart );
     if((self.imageTriangle.frame.origin.x == posXTriangleStart) && animationActive==NO ){
         [self animationChangePage:self.containerB];
     }
@@ -321,7 +423,16 @@
      [self facebookLogin];
 }
 
+- (IBAction)actionExit:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self checkAutenticate];
+    }];
+}
 
+- (IBAction)unwindToAuthenticationVC:(UIStoryboardSegue*)sender{
+     NSLog(@"unwindToAuthenticationVC");
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)dealloc{
     NSLog(@"DEALLOC");

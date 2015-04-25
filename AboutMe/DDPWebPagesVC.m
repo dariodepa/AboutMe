@@ -21,6 +21,9 @@
     self.webView.delegate = self;
     //[SHPComponents titleLogoForViewController:self];
     self.navigationItem.title = nil;
+    if(self.titlePage){
+        self.navigationItem.title = self.titlePage;
+    }
     [self initialize];
 }
 
@@ -48,8 +51,6 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSLog(@"webViewDidFinishLoad");
-    //[self.activityIndicator stopAnimating];
-    //[self.activityIndicator setHidden:YES];
     [actIndicator stopAnimating];
     [actIndicator setHidden:YES];
     self.navigationItem.rightBarButtonItem = self.buttonItemRefresh;
@@ -71,6 +72,7 @@
 }
 
 - (IBAction)actionExit:(id)sender {
+    //[self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -14,11 +14,14 @@
     UIBarButtonItem *activityButtonItem;
 }
 
+
+@property (nonatomic, strong) NSString *urlPage;
+@property (nonatomic, strong) NSString *titlePage;
+
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *buttonItemRefresh;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) NSString *urlPage;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonItemRefresh;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonExit;
+
 - (IBAction)actionExit:(id)sender;
 - (IBAction)actionRefresh:(id)sender;
 

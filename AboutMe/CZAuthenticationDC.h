@@ -33,6 +33,7 @@ extern int MIN_CHARS_NAMECOMPLETE;
 -(void)animationAlpha:(UIView *)viewAnimated;
 
 +(void)arroundImage:(float)borderRadius borderWidth:(float)borderWidth layer:(CALayer *)layer;
++(UIColor *)colorWithHexString:(NSString *)colorString;
 
 
 @end

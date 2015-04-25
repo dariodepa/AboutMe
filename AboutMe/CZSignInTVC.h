@@ -28,10 +28,13 @@
     NSString *errorMessage;
     UIView *viewError;
     UILabel *labelError;
+    
+    NSDictionary * settings_config;
 }
 
 //@property (weak, nonatomic) IBOutlet UIView *viewError;
 //@property (weak, nonatomic) IBOutlet UILabel *labelError;
+@property (strong, nonatomic) NSString *stringEmail;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewPhotoUser;
@@ -49,8 +52,9 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *buttonPreviou;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *buttonNext;
 @property (strong, nonatomic) IBOutlet UISwitch *switchTermOfUse;
+@property (strong, nonatomic) IBOutlet UIButton *buttonPrivacy;
 
-
+- (IBAction)actionPrivacy:(id)sender;
 - (IBAction)actionPreviou:(id)sender;
 - (IBAction)actionNext:(id)sender;
 @end

@@ -188,7 +188,7 @@
                                             //[self loginWithEmail:username psw:passwordValue];
                                             [self.delegate hideWaiting];
                                             self.buttonEnter.enabled = YES;
-                                            NSString *errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Username e/o password errate", nil)];
+                                            errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Username e/o password errate", nil)];
                                             [self animationMessageError:errorMessage];
                                             //[self.delegate animationMessageError:errorMessage];
                                         }

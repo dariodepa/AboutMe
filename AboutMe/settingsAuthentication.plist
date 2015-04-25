@@ -2,18 +2,37 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>header</key>
+	<key>Settings</key>
+	<dict>
+		<key>enableButtonExit</key>
+		<true/>
+		<key>urlPrivacyPage</key>
+		<string>http://www.facebook.com</string>
+		<key>titlePrivacyPage</key>
+		<string>Privacy Policy</string>
+	</dict>
+	<key>Header</key>
 	<dict>
 		<key>imageBackground</key>
-		<string>headerBackground.png</string>
+		<string>http://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11137806_424509201064344_339167934_n.jpg</string>
+		<key>colorBackground</key>
+		<string>dddddd</string>
 		<key>title</key>
-		<string>Sogliano Cavour</string>
-		<key>fontColor</key>
+		<string>Sogliano Cavour2</string>
+		<key>description</key>
+		<string>Entra gratuitamente nella nostra comunità, iscriviti o accedi.</string>
+		<key>titleFontColor</key>
 		<string>ffffff</string>
-		<key>fontSize</key>
-		<string>12</string>
-		<key>font</key>
-		<string>Heiti SC Light</string>
+		<key>titleFontSize</key>
+		<string>34.0</string>
+		<key>titleFont</key>
+		<string>Noteworthy-Bold</string>
+		<key>descriptionFontColor</key>
+		<string>ffffff</string>
+		<key>descriptionFontSize</key>
+		<string>12.0</string>
+		<key>descriptionFont</key>
+		<string>Avenir</string>
 		<key>buttonFontColor</key>
 		<string>ffffff</string>
 		<key>buttonFont</key>

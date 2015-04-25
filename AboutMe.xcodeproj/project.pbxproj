@@ -41,7 +41,6 @@
 		DCD4920D1AD90A62003440D5 /* headerBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD491EF1AD90A62003440D5 /* headerBackground.png */; };
 		DCD4920E1AD90A62003440D5 /* headerBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD491F01AD90A62003440D5 /* headerBackground@2x.png */; };
 		DCD492111AD92C51003440D5 /* CZAuthenticationDC.m in Sources */ = {isa = PBXBuildFile; fileRef = DCD492101AD92C51003440D5 /* CZAuthenticationDC.m */; };
-		DCD4932F1AE594A0003440D5 /* profileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCD4932E1AE594A0003440D5 /* profileVC.swift */; };
 		DCD493311AE5A330003440D5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCD493301AE5A330003440D5 /* CoreData.framework */; };
 		DCD493341AE5A679003440D5 /* profile1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCD493331AE5A679003440D5 /* profile1@2x.jpg */; };
 		DCD493361AE5A6B1003440D5 /* header_bg1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCD493351AE5A6B0003440D5 /* header_bg1@2x.jpg */; };
@@ -117,8 +116,6 @@
 		DCD491F01AD90A62003440D5 /* headerBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "headerBackground@2x.png"; sourceTree = "<group>"; };
 		DCD4920F1AD92C51003440D5 /* CZAuthenticationDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZAuthenticationDC.h; sourceTree = "<group>"; };
 		DCD492101AD92C51003440D5 /* CZAuthenticationDC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CZAuthenticationDC.m; sourceTree = "<group>"; };
-		DCD4932D1AE5938B003440D5 /* AboutMe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AboutMe-Bridging-Header.h"; sourceTree = "<group>"; };
-		DCD4932E1AE594A0003440D5 /* profileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = profileVC.swift; sourceTree = "<group>"; };
 		DCD493301AE5A330003440D5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		DCD493331AE5A679003440D5 /* profile1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "profile1@2x.jpg"; sourceTree = "<group>"; };
 		DCD493351AE5A6B0003440D5 /* header_bg1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "header_bg1@2x.jpg"; sourceTree = "<group>"; };
@@ -192,13 +189,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DCD4931D1AE5857C003440D5 /* Profile */ = {
+		DCC433361AEBC0F7003182D8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DCD4932E1AE594A0003440D5 /* profileVC.swift */,
-				DCD4932D1AE5938B003440D5 /* AboutMe-Bridging-Header.h */,
+				DCD7858D1AC72E78003E1752 /* MBProgressHUD.h */,
+				DCD7858E1AC72E78003E1752 /* MBProgressHUD.m */,
+				DCD4920F1AD92C51003440D5 /* CZAuthenticationDC.h */,
+				DCD492101AD92C51003440D5 /* CZAuthenticationDC.m */,
 			);
-			name = Profile;
+			name = Classes;
 			sourceTree = "<group>";
 		};
 		DCD493321AE5A514003440D5 /* images */ = {
@@ -231,9 +230,8 @@
 			isa = PBXGroup;
 			children = (
 				DCD493321AE5A514003440D5 /* images */,
-				DCD4931D1AE5857C003440D5 /* Profile */,
 				DCD7858C1AC72E66003E1752 /* Classes */,
-				DCD785701AC70CAB003E1752 /* Authentication */,
+				DCD785701AC70CAB003E1752 /* CZ-Authentication */,
 				DCD784FD1AC6ACD5003E1752 /* AppDelegate.h */,
 				DCD784FE1AC6ACD6003E1752 /* AppDelegate.m */,
 				DCD785001AC6ACD6003E1752 /* ViewController.h */,
@@ -281,11 +279,10 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DCD785701AC70CAB003E1752 /* Authentication */ = {
+		DCD785701AC70CAB003E1752 /* CZ-Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				DCD4920F1AD92C51003440D5 /* CZAuthenticationDC.h */,
-				DCD492101AD92C51003440D5 /* CZAuthenticationDC.m */,
+				DCC433361AEBC0F7003182D8 /* Classes */,
 				DCD785711AC70DE0003E1752 /* images */,
 				DCD7857E1AC70E89003E1752 /* Authentication.storyboard */,
 				DCD7857F1AC70E89003E1752 /* settingsAuthentication.plist */,
@@ -300,7 +297,7 @@
 				DC9E83791ACFE096008849D2 /* CZAuthenticationVC.h */,
 				DC9E837A1ACFE096008849D2 /* CZAuthenticationVC.m */,
 			);
-			name = Authentication;
+			name = "CZ-Authentication";
 			sourceTree = "<group>";
 		};
 		DCD785711AC70DE0003E1752 /* images */ = {
@@ -345,8 +342,6 @@
 		DCD7858C1AC72E66003E1752 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				DCD7858D1AC72E78003E1752 /* MBProgressHUD.h */,
-				DCD7858E1AC72E78003E1752 /* MBProgressHUD.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -464,7 +459,6 @@
 				DCD7858F1AC72E78003E1752 /* MBProgressHUD.m in Sources */,
 				DC9E837E1AD05A9D008849D2 /* CZLoginVC.m in Sources */,
 				DC9E83811AD58BD4008849D2 /* DDPWebPagesVC.m in Sources */,
-				DCD4932F1AE594A0003440D5 /* profileVC.swift in Sources */,
 				DCD785921AC85B32003E1752 /* CZSignInTVC.m in Sources */,
 				DCD492111AD92C51003440D5 /* CZAuthenticationDC.m in Sources */,
 				DCD785951AC883B7003E1752 /* CZSignInEmailVC.m in Sources */,
@@ -512,8 +506,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Corrado Causo (A8J7X4Y9QS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Corrado Causo (A8J7X4Y9QS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -530,10 +524,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a339b7fd-b178-44e7-93d0-7151def6f1f7";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -555,8 +549,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Corrado Causo (A8J7X4Y9QS)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Corrado Causo (A8J7X4Y9QS)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -567,9 +561,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "a339b7fd-b178-44e7-93d0-7151def6f1f7";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
