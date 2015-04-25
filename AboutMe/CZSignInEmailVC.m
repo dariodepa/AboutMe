@@ -26,8 +26,8 @@
 }
 
 -(void)initialize{
-    [self.buttonNext setTitle:NSLocalizedString(@"Avanti", nil) forState:UIControlStateNormal];
-    self.textEmail.placeholder = NSLocalizedString(@"Inserisci la tua e-mail", nil);
+    [self.buttonNext setTitle:NSLocalizedStringFromTable(@"Avanti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    self.textEmail.placeholder = NSLocalizedStringFromTable(@"InserisciEmail", @"CZ-AuthenticationLocalizable", @"");
     [self disableButton:self.buttonNext];
     //[self.textEmail becomeFirstResponder];
     [self addControllChangeTextField:self.textEmail];
@@ -157,7 +157,7 @@
     if([self validEmail:self.textEmail.text]){
         [self performSegueWithIdentifier:@"toSignInUser" sender:self];
     }else{
-        errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Email non corretta", nil)];//[error localizedDescription];
+        errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedStringFromTable(@"EmailError", @"CZ-AuthenticationLocalizable", @"")];//[error localizedDescription];
         [self animationMessageError:errorMessage];
     }
 }

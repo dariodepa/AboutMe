@@ -8,29 +8,25 @@
 		<true/>
 		<key>urlPrivacyPage</key>
 		<string>http://www.facebook.com</string>
-		<key>titlePrivacyPage</key>
-		<string>Privacy Policy</string>
 	</dict>
-	<key>Header</key>
+	<key>HeaderAuthentication</key>
 	<dict>
 		<key>imageBackground</key>
 		<string>http://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11137806_424509201064344_339167934_n.jpg</string>
 		<key>colorBackground</key>
-		<string>dddddd</string>
-		<key>title</key>
-		<string>Sogliano Cavour2</string>
-		<key>description</key>
-		<string>Entra gratuitamente nella nostra comunità, iscriviti o accedi.</string>
+		<string>cccccc</string>
+		<key>alphaViewHeader</key>
+		<real>0.2</real>
 		<key>titleFontColor</key>
-		<string>ffffff</string>
+		<string>4E6CA7</string>
 		<key>titleFontSize</key>
 		<string>34.0</string>
 		<key>titleFont</key>
 		<string>Noteworthy-Bold</string>
 		<key>descriptionFontColor</key>
-		<string>ffffff</string>
+		<string>4E6CA7</string>
 		<key>descriptionFontSize</key>
-		<string>12.0</string>
+		<string>14.0</string>
 		<key>descriptionFont</key>
 		<string>Avenir</string>
 		<key>buttonFontColor</key>
@@ -39,6 +35,29 @@
 		<string>System Bold</string>
 		<key>buttonFontSize</key>
 		<string>12</string>
+	</dict>
+	<key>HeaderResetPassword</key>
+	<dict>
+		<key>imageBackground</key>
+		<string></string>
+		<key>colorBackground</key>
+		<string></string>
+		<key>alphaViewHeader</key>
+		<string></string>
+		<key>titleFontColor</key>
+		<string></string>
+		<key>titleFontSize</key>
+		<string></string>
+		<key>titleFont</key>
+		<string></string>
+		<key>descriptionFontColor</key>
+		<string></string>
+		<key>descriptionFontSize</key>
+		<string></string>
+		<key>descriptionFont</key>
+		<string></string>
+		<key>buttonFontSize</key>
+		<string></string>
 	</dict>
 </dict>
 </plist>

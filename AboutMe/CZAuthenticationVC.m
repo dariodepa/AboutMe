@@ -58,11 +58,10 @@
     animationActive = NO;
     [self setMessageError];
     [self setHeader];
-    [self.buttonAccedi setTitle:NSLocalizedString(@"ACCEDI", nil) forState:UIControlStateNormal];
-    [self.buttonIscriviti setTitle:NSLocalizedString(@"ISCRIVITI", nil) forState:UIControlStateNormal];
-    NSLog(@"children : %@", self.childViewControllers);
-    //CZSignInEmailVC *contentSigninEmailVC = [self.childViewControllers objectAtIndex:0];
-    //contentSigninEmailVC.delegate = self;
+    [self.buttonAccedi setTitle:NSLocalizedStringFromTable(@"Accedi", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    [self.buttonIscriviti setTitle:NSLocalizedStringFromTable(@"Iscriviti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    [self.buttonFacebookLogin setTitle:NSLocalizedStringFromTable(@"AccediConFacebook", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    
     CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
     contentLoginVC.delegate = self;
     [self addGestureRecognizerToView];
@@ -88,18 +87,19 @@
 
 -(void)setHeader{
     dicHeader = [self readerPlistForHeader];
-    NSLog(@"dicHeader %@",dicHeader);
-    NSString *title = [dicHeader objectForKey:@"title"];
+    NSString *title =  NSLocalizedStringFromTable(@"", @"CZ-AuthenticationLocalizable", @"");
+    NSString *description = NSLocalizedStringFromTable(@"", @"CZ-AuthenticationLocalizable", @"");
+    
     NSString *titleFont = [dicHeader objectForKey:@"titleFont"];
     CGFloat titleFontSize = [[dicHeader objectForKey:@"titleFontSize"] floatValue];
     NSString *titleFontColor = [dicHeader objectForKey:@"titleFontColor"];
-    NSString *description = [dicHeader objectForKey:@"description"];
     NSString *descriptionFont = [dicHeader objectForKey:@"descriptionFont"];
     CGFloat descriptionFontSize = [[dicHeader objectForKey:@"descriptionFontSize"] floatValue];
     NSString *descriptionFontColor = [dicHeader objectForKey:@"descriptionFontColor"];
     NSString *buttonFont = [dicHeader objectForKey:@"buttonFont"];
     CGFloat buttonFontSize = [[dicHeader objectForKey:@"buttonFontSize"] floatValue];
     NSString *buttonFontColor = [dicHeader objectForKey:@"buttonFontColor"];
+    
     self.labelHeaderTitle.text = title;
     [self customFontLabel:self.labelHeaderTitle font:titleFont fontSize:titleFontSize color:titleFontColor];
     self.labelHeaderDescription.text = description;
@@ -112,6 +112,8 @@
     imageBackground = [dicHeader objectForKey:@"imageBackground"];
     if(colorBackground){
        self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
+       self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
+       self.viewBackgroundHeader.alpha = [[dicHeader objectForKey:@"alphaViewHeader"] floatValue];
     }
 }
 
@@ -134,7 +136,7 @@
 -(NSDictionary *)readerPlistForHeader{
     NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"settingsAuthentication" ofType:@"plist"];
     NSDictionary *plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistCatPath];
-    return [plistDictionary objectForKey:@"Header"];
+    return [plistDictionary objectForKey:@"HeaderAuthentication"];
 }
 
 -(void)customFontLabel:(UILabel*)label font:(NSString*)font fontSize:(CGFloat)fontSize color:(NSString*)color {
@@ -155,10 +157,10 @@
     NSLog(@"IMAGES DATA: %@",name);//[HUD hide:YES];
     if([name isEqualToString:@"imageCover"]){
         self.imageHeaderBackground.alpha = 0.0;
-        self.imageHeaderBackground.image = image;
-       // [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
+        [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
         //self.imageHeaderBackground.contentMode = UIViewContentModeCenter;
         self.imageHeaderBackground.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageHeaderBackground.image = image;
         [DC animationAlpha:self.imageHeaderBackground];
     }
 }
@@ -348,7 +350,7 @@
 //--------------------------------------------------------------------//
 - (void)facebookLogin{
     [self disableAllButton];
-    [self showWaiting:NSLocalizedString(@"Autenticazione in corso...", nil)];
+    [self showWaiting:NSLocalizedStringFromTable(@"AutenticazioneInCorso", @"CZ-AuthenticationLocalizable", @"")];
     NSArray *permissionsArray = @[@"public_profile", @"email", @"user_friends"];// @"user_about_me", @"user_relationships", @"user_birthday", @"user_location"
     [PFFacebookUtils logInWithPermissions:permissionsArray block:^(PFUser *user, NSError *error) {
         [self hideWaiting];
@@ -356,21 +358,16 @@
         if (!user) {
             errorMessage = nil;
             if (!error) {
-                NSLog(@"Uh oh. The user cancelled the Facebook login.");
-                errorMessage = @"Uh oh. The user cancelled the Facebook login.";
+                errorMessage = NSLocalizedStringFromTable(@"FacebookLoginCancellato", @"CZ-AuthenticationLocalizable", @"");
                 [self animationMessageError:errorMessage];
             } else {
-                NSLog(@"Uh oh. An error occurred: %@", error);
-                errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"FacebookConnectionError", nil)];//[error localizedDescription];
+                errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedStringFromTable(@"FacebookConnectionError", @"CZ-AuthenticationLocalizable", @"")];//[error localizedDescription];
                 [self animationMessageError:errorMessage];
             }
         } else {
-             NSLog(@"User :: %@",user);
             if (user.isNew) {
-                NSLog(@"User with facebook signed up and logged in!");
                 [self performSegueWithIdentifier:@"toSignInUser" sender:self];
             } else {
-                NSLog(@"User with facebook logged in!");
                 [self saveSessionToken];
                 [self dismissViewControllerAnimated:YES completion:^{
                 }];

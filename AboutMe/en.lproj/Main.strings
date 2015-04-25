@@ -1,0 +1,24 @@
+
+/* Class = "UIButton"; normalTitle = "PROFILE"; ObjectID = "Cdy-YQ-Zi2"; */
+"Cdy-YQ-Zi2.normalTitle" = "PROFILE";
+
+/* Class = "UILabel"; text = "START"; ObjectID = "LFg-Wx-Oj2"; */
+"LFg-Wx-Oj2.text" = "START";
+
+/* Class = "UIButton"; normalTitle = "logout"; ObjectID = "NU2-sl-o6b"; */
+"NU2-sl-o6b.normalTitle" = "logout";
+
+/* Class = "UILabel"; text = "Jane Stormtrooper"; ObjectID = "Psw-nW-DAp"; */
+"Psw-nW-DAp.text" = "Jane Stormtrooper";
+
+/* Class = "UILabel"; text = "@bitwaker"; ObjectID = "cEz-up-1ti"; */
+"cEz-up-1ti.text" = "@bitwaker";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "csH-eh-6Uv"; */
+"csH-eh-6Uv.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Jane Stormtrooper"; ObjectID = "iIT-GB-iCt"; */
+"iIT-GB-iCt.text" = "Jane Stormtrooper";
+
+/* Class = "UIButton"; normalTitle = "Follow"; ObjectID = "ymn-Q9-TQ1"; */
+"ymn-Q9-TQ1.normalTitle" = "Follow";

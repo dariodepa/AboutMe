@@ -54,6 +54,7 @@
 @property (strong, nonatomic) IBOutlet UISwitch *switchTermOfUse;
 @property (strong, nonatomic) IBOutlet UIButton *buttonPrivacy;
 
+
 - (IBAction)actionPrivacy:(id)sender;
 - (IBAction)actionPreviou:(id)sender;
 - (IBAction)actionNext:(id)sender;

@@ -60,7 +60,7 @@
     NSLog(@"error: %@",error);
     //[self.activityIndicator stopAnimating];
     //[self.activityIndicator setHidden:YES];
-    UIAlertView *userAdviceAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"NetworkErrorTitleLKey", nil) message:NSLocalizedString(@"NetworkErrorLKey", nil) delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *userAdviceAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"NetworkErrorTitle", @"CZ-AuthenticationLocalizable", @"") message:NSLocalizedStringFromTable(@"NetworkError", @"CZ-AuthenticationLocalizable", @"") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [userAdviceAlert show];
 }
 

@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelHeaderTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelHeaderDescription;
 @property (strong, nonatomic) IBOutlet UIImageView *imageHeaderBackground;
+@property (strong, nonatomic) IBOutlet UIView *viewBackgroundHeader;
 @property (weak, nonatomic) IBOutlet UIButton *buttonIscriviti;
 @property (weak, nonatomic) IBOutlet UIButton *buttonAccedi;
 //@property (weak, nonatomic) IBOutlet UIView *viewError;

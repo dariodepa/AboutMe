@@ -1,0 +1,49 @@
+/* 
+  CZ-AuthenticationLocalizable.strings
+  AboutMe
+
+  Created by Dario De pascalis on 25/04/15.
+  Copyright (c) 2015 Dario De Pascalis. All rights reserved.
+*/
+"titleAuthentication" = "About ME";
+"descriptionAuthentication" = "Entra gratuitamente nella nostra comunità, iscriviti o accedi.";
+"Accedi" = "Accedi";
+"Iscriviti" = "Iscriviti";
+"titleResetPassword" = "titleResetPassword";
+"descriptionResetPassword" = "descriptionResetPassword";
+
+"Avanti" = "Avanti";
+"Indietro" = "Indietro";
+"Foto" = "Foto";
+"PasswordDimenticata" = "Password dimenticata?";
+"NomeUtente" = "Nome utente";
+"Password" = "Password";
+
+
+"AccediConFacebook" = "Accedi con Facebook";
+"InserisciEmail" = "Inserisci la tua email";
+"Email" = "Email";
+"Username" = "Username";
+"NomeCompleto" = "NomeCompleto";
+"AccettaPrivacy" = "Leggi e accetta la normativa sulla privacy";
+"titlePrivacyPage" = "Privacy";
+
+
+"AutenticazioneInCorso" = "Autenticazione in corso...";
+"FacebookLoginCancellato" = "L'utente ha cancellato il login con Facebook";
+"FacebookConnectionError" = "Errore di connessione a Facebook. Prova di nuovo.";
+"UsernamePasswordError" = "Username e/o Password errata";
+"EmailError" = "Email non corretta";
+"NetworkErrorTitle" = "Errore di caricamento";
+"NetworkError" = "La pagina non può esere caricata";
+"EmailGiaPresente" = "Email '%@' già presente";
+"UsernameGiaPresente" = "Username '%@' già in uso";
+"RegistrazioneInCorso" = "Registrazione in corso...";
+"PhotoFromGallery" = "Libreria Foto";
+"TakePhoto" = "Scatta Foto";
+"RemoveProfilePhoto" = "Elimina Foto Profilo";
+"Annulla" = "Annulla";
+"AccettaTermini" = "Devi accettare i termini e le condizioni d'uso";
+"NomeNonValido" = "Nome Utente non valido";
+"PasswordNonValida" = "Password non valida. La password deve essere di almeno %d caratteri";
+"UsernameNonValido" = "Username non valida. L'username deve essere di almeno %d caratteri";

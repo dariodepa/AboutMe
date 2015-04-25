@@ -34,8 +34,9 @@
 }
 
 -(void)initialize{
-    self.textUsername.placeholder = NSLocalizedString(@"Nome utente", nil);
-    self.textPassword.placeholder = NSLocalizedString(@"Password", nil);
+    self.textUsername.placeholder = NSLocalizedStringFromTable(@"NomeUtente", @"CZ-AuthenticationLocalizable", @"");
+    self.textPassword.placeholder = NSLocalizedStringFromTable(@"Password", @"CZ-AuthenticationLocalizable", @"");
+    [self.buttonRememberPassword setTitle:NSLocalizedStringFromTable(@"PasswordDimenticata", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     [self addGestureRecognizerToView];
     [self addControllChangeTextField:self.textUsername];
     [self addControllChangeTextField:self.textPassword];
@@ -171,7 +172,7 @@
 //--------------------------------------------------------------------//
 -(void)loginViewController{
     NSLog(@"loginViewController");
-    [self.delegate showWaiting:NSLocalizedString(@"Autenticazione in corso...", nil)];
+    [self.delegate showWaiting:NSLocalizedStringFromTable(@"AutenticazioneInCorso", @"CZ-AuthenticationLocalizable", @"")]; //]NSLocalizedString(@"Autenticazione in corso...", nil)];
     self.buttonEnter.enabled = NO;
     NSString *username = [self.textUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *passwordValue = [self.textPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -188,7 +189,7 @@
                                             //[self loginWithEmail:username psw:passwordValue];
                                             [self.delegate hideWaiting];
                                             self.buttonEnter.enabled = YES;
-                                            errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Username e/o password errate", nil)];
+                                            errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedStringFromTable(@"UsernamePasswordError", @"CZ-AuthenticationLocalizable", @"")];
                                             [self animationMessageError:errorMessage];
                                             //[self.delegate animationMessageError:errorMessage];
                                         }
@@ -202,27 +203,19 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"toSignInUser"]) {
-        NSLog(@"prepareForSegue toSignInUser");
-        //UINavigationController *nc = [segue destinationViewController];
-        //CZSignInTVC *vc = (CZSignInTVC *)[[nc viewControllers] objectAtIndex:0];
+    if ([[segue identifier] isEqualToString:@"toResetPassword"]) {
+        //
     } else if ([[segue identifier] isEqualToString:@"toWebView"]) {
-                UINavigationController *nc = [segue destinationViewController];
-                DDPWebPagesVC *vc = (DDPWebPagesVC *)[[nc viewControllers] objectAtIndex:0];
-                //DDPWebPagesVC *vc = (DDPWebPagesVC *)[segue destinationViewController];
-                vc.urlPage = @"www.google.it";//[self getUrlPageRememberPassword];
     }
 }
 
 - (IBAction)actionEnter:(id)sender {
-    //NSLog(@"XXX %@",master);
-    //[self.delegate animationMessageError:@"ciao"];
     [self loginViewController];
 }
 
 - (IBAction)actionRememberPassword:(id)sender {
     [self dismissKeyboard];
-    [self performSegueWithIdentifier:@"toWebView" sender:self];
+    [self performSegueWithIdentifier:@"toResetPassword" sender:self];
 }
 
 - (void)dealloc{

@@ -50,13 +50,15 @@
     UITapGestureRecognizer* tapRec = [[UITapGestureRecognizer alloc]
                                       initWithTarget:self action:@selector(didTapImage)];
     [self.imageProfile addGestureRecognizer:tapRec];
-    // init the action menu & profile image
-    //[self resetUserPhoto];
     
-    self.textNameComplete.placeholder = NSLocalizedString(@"Nome completo", nil);
-    self.textUsername.placeholder = NSLocalizedString(@"Username", nil);
-    self.textEmail.placeholder = NSLocalizedString(@"Email", nil);
-    self.textPassword.placeholder = NSLocalizedString(@"Password", nil);
+    self.textNameComplete.placeholder = NSLocalizedStringFromTable(@"NomeCompleto", @"CZ-AuthenticationLocalizable", @"");
+    self.textUsername.placeholder = NSLocalizedStringFromTable(@"Username", @"CZ-AuthenticationLocalizable", @"");
+    self.textEmail.placeholder = NSLocalizedStringFromTable(@"Email", @"CZ-AuthenticationLocalizable", @"");
+    self.textPassword.placeholder = NSLocalizedStringFromTable(@"Password", @"CZ-AuthenticationLocalizable", @"");
+    [self.buttonPrivacy setTitle:NSLocalizedStringFromTable(@"AccettaPrivacy", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    [self.buttonPreviou setTitle:NSLocalizedStringFromTable(@"Indietro", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    [self.buttonNext setTitle:NSLocalizedStringFromTable(@"Avanti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    self.labelPhoto.text =  NSLocalizedStringFromTable(@"Foto", @"CZ-AuthenticationLocalizable", @"");
     
     if(self.stringEmail){
         self.textEmail.text = self.stringEmail;
@@ -235,7 +237,7 @@
     NSString *passwordValue = [self.textPassword.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (![self validEmail:emailValue]) {
         self.imageEmail.image = [UIImage imageNamed:@"mail_red"];
-        errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Email errata", nil)];
+        errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"EmailError", @"CZ-AuthenticationLocalizable", @"")];
         [self animationMessageError:errorMessage];
         return false;
     }else{
@@ -243,7 +245,7 @@
     }
     if ([usernameValue isEqualToString:@""] || usernameValue.length<MIN_CHARS_USERNAME) {
         self.imageUsername.image = [UIImage imageNamed:@"username_red"];
-        errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Username non valida. L'username deve essere di almeno %d caratteri", nil), MIN_CHARS_USERNAME];
+        errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"UsernameNonValido", @"CZ-AuthenticationLocalizable", @""), MIN_CHARS_USERNAME];
         [self animationMessageError:errorMessage];
         return false;
     }else{
@@ -251,7 +253,7 @@
     }
     if(facebookId.length<=0 && ([passwordValue isEqualToString:@""] || passwordValue.length<MIN_CHARS_PASSWORD)) {
         self.imagePassword.image = [UIImage imageNamed:@"password_red"];
-        errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Password non valida. La password deve essere di almeno %d caratteri", nil), MIN_CHARS_PASSWORD];
+        errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"PasswordNonValida", @"CZ-AuthenticationLocalizable", @""), MIN_CHARS_PASSWORD];
         [self animationMessageError:errorMessage];
         return false;
     }else{
@@ -259,14 +261,14 @@
     }
     if ([nameValue isEqualToString:@""] || nameValue.length<MIN_CHARS_NAMECOMPLETE) {
         self.imageNameComplete.image = [UIImage imageNamed:@"badge_red"];
-        errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Nome Utente non valido", nil)];
+        errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"NomeNonValido", @"CZ-AuthenticationLocalizable", @"")];
         [self animationMessageError:errorMessage];
         return false;
     }else{
         self.imageNameComplete.image = [UIImage imageNamed:@"badge_green"];
     }
     if (self.switchTermOfUse.on==NO) {
-        errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Devi accettare i termini e le condizioni d'uso", nil)];
+        errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"AccettaTermini", @"CZ-AuthenticationLocalizable", @"")];
         [self animationMessageError:errorMessage];
         return false;
     }
@@ -283,7 +285,7 @@
 //-------------------------------------------------------------------//
 -(void)didTapImage {
     NSLog(@"tapped");
-    takePhotoMenu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"CancelLKey", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"TakePhotoLKey", nil), NSLocalizedString(@"PhotoFromGalleryLKey", nil), NSLocalizedString(@"RemoveProfilePhotoLKey", nil), nil];
+    takePhotoMenu = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedStringFromTable(@"Annulla", @"CZ-AuthenticationLocalizable", @"") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedStringFromTable(@"TakePhoto", @"CZ-AuthenticationLocalizable", @""), NSLocalizedStringFromTable(@"PhotoFromGallery", @"CZ-AuthenticationLocalizable", @""), NSLocalizedStringFromTable(@"RemoveProfilePhoto", @"CZ-AuthenticationLocalizable", @""), nil];
     takePhotoMenu.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [takePhotoMenu showInView:self.view];
 }
@@ -291,15 +293,15 @@
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSLog(@"Alert Button!");
     NSString *option = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([option isEqualToString:NSLocalizedString(@"TakePhotoLKey", nil)]) {
+    if ([option isEqualToString:NSLocalizedStringFromTable(@"TakePhoto", @"CZ-AuthenticationLocalizable", @"")]) {
         NSLog(@"Take Photo");
         [self takePhoto];
     }
-    else if ([option isEqualToString:NSLocalizedString(@"PhotoFromGalleryLKey", nil)]) {
+    else if ([option isEqualToString:NSLocalizedStringFromTable(@"PhotoFromGallery", @"CZ-AuthenticationLocalizable", @"")]) {
         NSLog(@"Choose from Gallery");
         [self chooseExisting];
     }
-    else if ([option isEqualToString:NSLocalizedString(@"RemoveProfilePhotoLKey", nil)]) {
+    else if ([option isEqualToString:NSLocalizedStringFromTable(@"RemoveProfilePhoto", @"CZ-AuthenticationLocalizable", @"")]) {
         NSLog(@"Choose from Gallery");
         [self resetUserPhoto];
     }
@@ -461,7 +463,7 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 -(void)completeProfile {
-    [self showWaiting:NSLocalizedString(@"Registrazione in corso...", nil)];
+    [self showWaiting:NSLocalizedStringFromTable(@"RegistrazioneInCorso", @"CZ-AuthenticationLocalizable", @"")];
     NSString *nameValue = [self.textNameComplete.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *usernameValue = [self.textUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *emailValue = [self.textEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -486,10 +488,10 @@
             errorMessage = [error userInfo][@"error"];
             NSNumber *errorCode = [error userInfo][@"code"];
             if([errorCode  isEqual: @202]){
-                errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Username '%@' già in uso", nil), usernameValue];
+                errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"UsernameGiaPresente", @"CZ-AuthenticationLocalizable", @""), usernameValue];
                 self.imageUsername.image = [UIImage imageNamed:@"username_red"];
             }else if([errorCode  isEqual: @203]){
-                errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Email '%@' già presente", nil), emailValue];
+                errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"EmailGiaPresente", @"CZ-AuthenticationLocalizable", @""), emailValue];
                 self.imageEmail.image = [UIImage imageNamed:@"email_red"];
             }
             [self animationMessageError:errorMessage];
@@ -500,7 +502,7 @@
 
 
 -(void)registrationUser {
-    [self showWaiting:NSLocalizedString(@"Registrazione in corso...", nil)];
+    [self showWaiting:NSLocalizedStringFromTable(@"RegistrazioneInCorso", @"CZ-AuthenticationLocalizable", @"")];
     NSString *nameValue = [self.textNameComplete.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *usernameValue = [self.textUsername.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *emailValue = [self.textEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -519,21 +521,15 @@
         if (!error) {
             NSLog(@"ENTRATO");
             [self saveSessionToken];
-            //[self dismissViewControllerAnimated:YES completion:nil];
-            //[self dismissViewControllerAnimated:YES completion:^{
-                /* do something when the animation is completed */
-                [self performSegueWithIdentifier:@"unwindToAuthenticationVC" sender:self];
-            //}];
-            //[self.navigationController popToRootViewControllerAnimated:YES];
-            // Hooray! Let them use the app now.
+            [self performSegueWithIdentifier:@"unwindToAuthenticationVC" sender:self];
         } else {
             errorMessage = [error userInfo][@"error"];
             NSNumber *errorCode = [error userInfo][@"code"];
             if([errorCode  isEqual: @202]){
-                errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Username '%@' già in uso", nil), usernameValue];
+                errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"UsernameGiaPresente", @"CZ-AuthenticationLocalizable", @""), usernameValue];
                 self.imageUsername.image = [UIImage imageNamed:@"username_red"];
             }else if([errorCode  isEqual: @203]){
-                errorMessage =  [NSString stringWithFormat:NSLocalizedString(@"Email '%@' già presente", nil), emailValue];
+                errorMessage =  [NSString stringWithFormat:NSLocalizedStringFromTable(@"EmailGiaPresente", @"CZ-AuthenticationLocalizable", @""), emailValue];
                 self.imageEmail.image = [UIImage imageNamed:@"email_red"];
             }
             [self animationMessageError:errorMessage];
@@ -578,7 +574,7 @@
         DDPWebPagesVC *vc = (DDPWebPagesVC *)[[nc viewControllers] objectAtIndex:0];
         //DDPWebPagesVC *vc = (DDPWebPagesVC *)[segue destinationViewController];
         vc.urlPage = [settings_config objectForKey:@"urlPrivacyPage"];
-        vc.titlePage = [settings_config objectForKey:@"titlePrivacyPage"];
+        vc.titlePage = NSLocalizedStringFromTable(@"titlePrivacyPage", @"CZ-AuthenticationLocalizable", @"");//[settings_config objectForKey:@"titlePrivacyPage"];
     }
 }
 //-------------------------------------------------------------------//
