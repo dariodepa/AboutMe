@@ -27,6 +27,7 @@ extern int MIN_CHARS_NAMECOMPLETE;
 
 @property (nonatomic, assign) id <CZAuthenticationDelegate> delegate;
 
+-(void)loadImageFromUrl:(NSString *)imageURL;
 -(void)loadImage:(PFFile *)imageFile;
 -(void)saveImage:(NSData *)imageData classParse:(PFObject *)classe;
 -(void)saveImageWithoutDelegate:(UIImage *)image nameImage:(NSString *)nameImage key:(NSString *)key;

@@ -17,6 +17,40 @@ int MIN_CHARS_NAMECOMPLETE = 2;
 @implementation CZAuthenticationDC
 
 
+-(void)loadImageFromUrlDispatch_async:(NSString *)imageURL {
+    NSURL *url = [NSURL URLWithString:imageURL];
+    NSLog(@"loadImageFromUrl: %@", url);
+//    NSData *data = [FTWCache objectForKey:key];
+//    //NSData *data = [FTWCache objectForKey:imageURL];
+//    if (imageData) {
+//        //UIImage *image = [UIImage imageWithData:data];
+//        [self.delegate refreshImage:imageData name:imageURL];
+//    } else {
+//        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
+//        dispatch_async(queue, ^{
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            NSData *imageData = [NSData dataWithContentsOfURL:url];
+             NSLog(@"loadImageFromUrl: %@", imageData);
+            //[FTWCache setObject:data forKey:imageURL];
+            //UIImage *image = [UIImage imageWithData:data];
+            [self.delegate refreshImage:imageData name:@"imageCover"];
+        });
+    //}
+}
+
+
+-(void)loadImageFromUrl:(NSString *)imageURL {
+    NSURL *url = [NSURL URLWithString:imageURL];
+    NSURLSessionDownloadTask *downloadPhotoTask = [[NSURLSession sharedSession]
+                                                   downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+                                                       NSData *imageData = [NSData dataWithContentsOfURL:location];
+                                                        //NSLog(@"loadImageFromUrl: %@", imageData);
+                                                       [self.delegate refreshImage:imageData name:@"imageCover"];
+                                                   }];
+    [downloadPhotoTask resume];
+}
+//----------- END LOAD IMAGE ---------------//
+
 -(void)loadImage:(PFFile *)imageFile
 {
     NSLog(@"loadImage: %@", imageFile.name);
@@ -34,7 +68,6 @@ int MIN_CHARS_NAMECOMPLETE = 2;
         [self.delegate setProgressBar:nil progress:progress];
     }];
 }
-
 
 -(void)saveImage:(NSData *)imageData classParse:(PFObject *)classe
 {
@@ -54,17 +87,22 @@ int MIN_CHARS_NAMECOMPLETE = 2;
 
 
 -(void)animationAlpha:(UIView *)viewAnimated{
+    NSLog(@"animationAlpha: %f",viewAnimated.alpha);
     viewAnimated.alpha = 0.0;
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:3.0
                      animations:^{
-                         viewAnimated.alpha = 0.9;
+                         viewAnimated.alpha = 1.0;
+                         NSLog(@"animationAlpha: %f",viewAnimated.alpha);
                      }
                      completion:^(BOOL finished){
-                         [UIView animateWithDuration:3.0
-                                          animations:^{
-                                              viewAnimated.alpha = 1.0;
-                        }];
-    }];
+//                         [UIView animateWithDuration:0.5
+//                                               delay:2.5
+//                                             options: (UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction)
+//                                          animations:^{
+//                                              viewAnimated.alpha = 0.0;
+//                                          }
+//                                          completion:nil];
+                     }];
 }
 
 
@@ -85,7 +123,6 @@ int MIN_CHARS_NAMECOMPLETE = 2;
                        [colorString characterAtIndex:0], [colorString characterAtIndex:0],
                        [colorString characterAtIndex:1], [colorString characterAtIndex:1],
                        [colorString characterAtIndex:2], [colorString characterAtIndex:2]];
-    
     if (colorString.length == 6)
     {
         int r, g, b;

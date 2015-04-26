@@ -44,14 +44,15 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setStartPosition];
-    NSLog(@"viewWillAppear %f",self.containerB.frame.origin.x);
+     NSLog(@"viewWillAppear");
+    if(!posXTriangleStart){
+        [self setStartPosition];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self setStartPosition];
-    [self loadBackgroundCover];
     NSLog(@"viewDidAppear %f",self.containerB.frame.origin.x);
 }
 
@@ -60,21 +61,22 @@
 //--------------------------------------------------------------------//
 -(void)initialize{
     animationActive = NO;
+    dicHeader =[self readerPlistForHeader];
     [self setMessageError];
     [self setHeader];
+    
     [self.buttonAccedi setTitle:NSLocalizedStringFromTable(@"Accedi", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     [self.buttonIscriviti setTitle:NSLocalizedStringFromTable(@"Iscriviti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     [self.buttonFacebookLogin setTitle:NSLocalizedStringFromTable(@"AccediConFacebook", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     
-    CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
-    contentLoginVC.delegate = self;
+//    CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
+//    contentLoginVC.delegate = self;
     [self addGestureRecognizerToView];
-    dicHeader =[self readerPlistForHeader];
+    
 }
 
 -(void)setMessageError
 {
-    //errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedString(@"Email non corretta", nil)];//[error localizedDescription];
     viewError = [[UIView alloc] init];
     viewError.frame = CGRectMake(0, 0, self.view.frame.size.width, 60);
     viewError.backgroundColor = [UIColor redColor];
@@ -105,29 +107,26 @@
     NSString *buttonFontColor = [dicHeader objectForKey:@"buttonFontColor"];
     
     self.labelHeaderTitle.text = title;
-    [self customFontLabel:self.labelHeaderTitle font:titleFont fontSize:titleFontSize color:titleFontColor];
     self.labelHeaderDescription.text = description;
+    [self customFontLabel:self.labelHeaderTitle font:titleFont fontSize:titleFontSize color:titleFontColor];
     [self customFontLabel:self.labelHeaderDescription font:descriptionFont fontSize:descriptionFontSize color:descriptionFontColor];
-    //[self.buttonAccedi setTitle:NSLocalizedString(@"ACCEDI", nil) forState:UIControlStateNormal];
     [self customFontLabel:self.buttonAccedi.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
-    //[self.buttonIscriviti setTitle:NSLocalizedString(@"ISCRIVITI", nil) forState:UIControlStateNormal];
     [self customFontLabel:self.buttonIscriviti.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
+    
     NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
     imageBackground = [dicHeader objectForKey:@"imageBackground"];
     if(colorBackground){
        self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
        self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
-       self.viewBackgroundHeader.alpha = [[dicHeader objectForKey:@"alphaViewHeader"] floatValue];
+       //self.viewBackgroundHeader.alpha = [[dicHeader objectForKey:@"alphaViewHeader"] floatValue];
     }
+    [self loadBackgroundCover];
 }
 
 -(void)loadBackgroundCover{
+    //controllo la cache
     if(imageBackground && self.imageHeaderBackground.image == nil){
-        NSURL *url = [NSURL URLWithString:imageBackground];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        NSLog(@"imageData: %@",imageData);//[HUD hide:YES];
-        PFFile *imageView = (PFFile *)[PFFile fileWithName:@"imageCover" data:imageData];
-        [DC loadImage:imageView];
+        [DC loadImageFromUrl:imageBackground];
     }
 }
 
@@ -158,14 +157,13 @@
 -(void)refreshImage:(NSData *)imageData name:(NSString*)name
 {
     UIImage *image = [UIImage imageWithData:imageData];
-    NSLog(@"IMAGES DATA: %@",name);//[HUD hide:YES];
+    NSLog(@"IMAGES DATA: %@",name);
     if([name isEqualToString:@"imageCover"]){
-        self.imageHeaderBackground.alpha = 0.0;
+        //self.imageHeaderBackground.alpha = 1.0;
         [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
-        //self.imageHeaderBackground.contentMode = UIViewContentModeCenter;
         self.imageHeaderBackground.contentMode = UIViewContentModeScaleAspectFill;
         self.imageHeaderBackground.image = image;
-        [DC animationAlpha:self.imageHeaderBackground];
+        [self animationAlpha:self.imageHeaderBackground];
     }
 }
 
@@ -205,6 +203,18 @@
 //--------------------------------------------------------------------//
 //START FUNCTIONS
 //--------------------------------------------------------------------//
+-(void)animationAlpha:(UIView *)viewAnimated{
+    NSLog(@"START animationAlpha %f",self.containerA.frame.origin.x);
+    viewAnimated.alpha = 0.0;
+    [UIView animateWithDuration:1.0
+                     animations:^{
+                         viewAnimated.alpha = 1.0;
+                     }
+                     completion:^(BOOL finished){
+                         NSLog(@"START animationAlpha %f",self.containerA.frame.origin.x);
+                     }];
+}
+
 -(void)animationMessageError:(NSString *)msg{
     viewError.alpha = 0.0;
     labelError.text = msg;
