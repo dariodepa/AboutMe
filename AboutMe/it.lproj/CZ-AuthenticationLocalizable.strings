@@ -47,3 +47,9 @@
 "NomeNonValido" = "Nome Utente non valido";
 "PasswordNonValida" = "Password non valida. La password deve essere di almeno %d caratteri";
 "UsernameNonValido" = "Username non valida. L'username deve essere di almeno %d caratteri";
+
+"titleResetPassword" = "RESET PASSWORD";
+"descriptionResetPassword" = "Inserisci il tuo indirizzo email per procedere a reimpostare la password";
+"ResetPassword" = "Reset Password";
+"MessageResetPassword" = "Il sistema invierà alla e-mail associata al profilo le istruzioni per poter inserire una nuova password.";
+"Ok" = "OK";

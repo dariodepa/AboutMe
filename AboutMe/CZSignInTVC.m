@@ -16,6 +16,10 @@
 
 @implementation CZSignInTVC
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -56,8 +60,8 @@
     self.textEmail.placeholder = NSLocalizedStringFromTable(@"Email", @"CZ-AuthenticationLocalizable", @"");
     self.textPassword.placeholder = NSLocalizedStringFromTable(@"Password", @"CZ-AuthenticationLocalizable", @"");
     [self.buttonPrivacy setTitle:NSLocalizedStringFromTable(@"AccettaPrivacy", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
-    [self.buttonPreviou setTitle:NSLocalizedStringFromTable(@"Indietro", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
-    [self.buttonNext setTitle:NSLocalizedStringFromTable(@"Avanti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
+    self.buttonNext.title = NSLocalizedStringFromTable(@"Indietro", @"CZ-AuthenticationLocalizable", @"");
+    self.buttonNext.title = NSLocalizedStringFromTable(@"Avanti", @"CZ-AuthenticationLocalizable", @"");
     self.labelPhoto.text =  NSLocalizedStringFromTable(@"Foto", @"CZ-AuthenticationLocalizable", @"");
     
     if(self.stringEmail){

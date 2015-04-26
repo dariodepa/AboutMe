@@ -17,6 +17,9 @@
 
 @implementation CZAuthenticationVC
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -31,6 +34,7 @@
             [self deleteSessionToken];
         }];
     }
+    
     NSLog(@"SOPRA DA ELIMINARE!!!!!!!!!!!!!!!!!! %f",self.containerB.frame.origin.x);
     DC = [[CZAuthenticationDC alloc] init];
     DC.delegate = self;
@@ -87,8 +91,8 @@
 
 -(void)setHeader{
     dicHeader = [self readerPlistForHeader];
-    NSString *title =  NSLocalizedStringFromTable(@"", @"CZ-AuthenticationLocalizable", @"");
-    NSString *description = NSLocalizedStringFromTable(@"", @"CZ-AuthenticationLocalizable", @"");
+    NSString *title =  NSLocalizedStringFromTable(@"titleAuthentication", @"CZ-AuthenticationLocalizable", @"");
+    NSString *description = NSLocalizedStringFromTable(@"descriptionAuthentication", @"CZ-AuthenticationLocalizable", @"");
     
     NSString *titleFont = [dicHeader objectForKey:@"titleFont"];
     CGFloat titleFontSize = [[dicHeader objectForKey:@"titleFontSize"] floatValue];

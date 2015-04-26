@@ -12,19 +12,19 @@
 	<key>HeaderAuthentication</key>
 	<dict>
 		<key>imageBackground</key>
-		<string>http://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11137806_424509201064344_339167934_n.jpg</string>
+		<string>http://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11032837_341327686061480_1996579083_n.jpg</string>
 		<key>colorBackground</key>
-		<string>cccccc</string>
-		<key>alphaViewHeader</key>
-		<real>0.2</real>
-		<key>titleFontColor</key>
 		<string>4E6CA7</string>
+		<key>alphaViewHeader</key>
+		<real>0.3</real>
+		<key>titleFontColor</key>
+		<string>ffffff</string>
 		<key>titleFontSize</key>
 		<string>34.0</string>
 		<key>titleFont</key>
 		<string>Noteworthy-Bold</string>
 		<key>descriptionFontColor</key>
-		<string>4E6CA7</string>
+		<string>ffffff</string>
 		<key>descriptionFontSize</key>
 		<string>14.0</string>
 		<key>descriptionFont</key>
@@ -39,25 +39,23 @@
 	<key>HeaderResetPassword</key>
 	<dict>
 		<key>imageBackground</key>
-		<string></string>
+		<string>http://igcdn-photos-e-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11116605_1381477532151508_481588024_n.jpg</string>
 		<key>colorBackground</key>
-		<string></string>
+		<string>4E6CA7</string>
 		<key>alphaViewHeader</key>
-		<string></string>
+		<real>0.3</real>
 		<key>titleFontColor</key>
-		<string></string>
+		<string>ffffff</string>
 		<key>titleFontSize</key>
-		<string></string>
+		<string>34.0</string>
 		<key>titleFont</key>
-		<string></string>
+		<string>Noteworthy-Bold</string>
 		<key>descriptionFontColor</key>
-		<string></string>
+		<string>ffffff</string>
 		<key>descriptionFontSize</key>
-		<string></string>
+		<string>14.0</string>
 		<key>descriptionFont</key>
-		<string></string>
-		<key>buttonFontSize</key>
-		<string></string>
+		<string>Avenir</string>
 	</dict>
 </dict>
 </plist>

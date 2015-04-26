@@ -11,11 +11,16 @@
 
 @implementation CZResetPasswordVC
 
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     DC = [[CZAuthenticationDC alloc] init];
     DC.delegate = self;
     self.imageHeaderBackground.image = nil;
+    [[self navigationController] setNavigationBarHidden:YES animated:NO];
     [self initialize];
 }
 
@@ -25,6 +30,7 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [self loadBackgroundCover];
 }
 
 //--------------------------------------------------------------------//
@@ -32,7 +38,7 @@
 //--------------------------------------------------------------------//
 -(void)initialize{
     animationActive = NO;
-    [self setMessageError];
+    [self.buttonNext setTitle:NSLocalizedStringFromTable(@"Avanti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     [self setHeader];
     [self addGestureRecognizerToView];
     dicHeader =[self readerPlistForHeader];
@@ -56,41 +62,44 @@
 
 -(void)setHeader{
     dicHeader = [self readerPlistForHeader];
-    NSLog(@"dicHeader %@",dicHeader);
-    NSString *title = [dicHeader objectForKey:@"title"];
+    NSString *title =  NSLocalizedStringFromTable(@"titleResetPassword", @"CZ-AuthenticationLocalizable", @"");
+    NSString *description = NSLocalizedStringFromTable(@"descriptionResetPassword", @"CZ-AuthenticationLocalizable", @"");
+    
     NSString *titleFont = [dicHeader objectForKey:@"titleFont"];
     CGFloat titleFontSize = [[dicHeader objectForKey:@"titleFontSize"] floatValue];
     NSString *titleFontColor = [dicHeader objectForKey:@"titleFontColor"];
-    NSString *description = [dicHeader objectForKey:@"description"];
     NSString *descriptionFont = [dicHeader objectForKey:@"descriptionFont"];
     CGFloat descriptionFontSize = [[dicHeader objectForKey:@"descriptionFontSize"] floatValue];
     NSString *descriptionFontColor = [dicHeader objectForKey:@"descriptionFontColor"];
-    NSString *buttonFont = [dicHeader objectForKey:@"buttonFont"];
-    CGFloat buttonFontSize = [[dicHeader objectForKey:@"buttonFontSize"] floatValue];
-    NSString *buttonFontColor = [dicHeader objectForKey:@"buttonFontColor"];
+    
     self.labelHeaderTitle.text = title;
     [self customFontLabel:self.labelHeaderTitle font:titleFont fontSize:titleFontSize color:titleFontColor];
     self.labelHeaderDescription.text = description;
     [self customFontLabel:self.labelHeaderDescription font:descriptionFont fontSize:descriptionFontSize color:descriptionFontColor];
-    //[self.buttonAccedi setTitle:NSLocalizedString(@"ACCEDI", nil) forState:UIControlStateNormal];
-    [self customFontLabel:self.buttonAccedi.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
-    //[self.buttonIscriviti setTitle:NSLocalizedString(@"ISCRIVITI", nil) forState:UIControlStateNormal];
-    [self customFontLabel:self.buttonIscriviti.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
+
     NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
     imageBackground = [dicHeader objectForKey:@"imageBackground"];
     if(colorBackground){
         self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
-        self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
+        //self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
         self.viewBackgroundHeader.alpha = [[dicHeader objectForKey:@"alphaViewHeader"] floatValue];
     }
 }
 
-
+-(void)loadBackgroundCover{
+    if(imageBackground && self.imageHeaderBackground.image == nil){
+        NSURL *url = [NSURL URLWithString:imageBackground];
+        NSData *imageData = [NSData dataWithContentsOfURL:url];
+        NSLog(@"imageData: %@",imageData);//[HUD hide:YES];
+        PFFile *imageView = (PFFile *)[PFFile fileWithName:@"imageCover" data:imageData];
+        [DC loadImage:imageView];
+    }
+}
 
 -(NSDictionary *)readerPlistForHeader{
     NSString *plistCatPath = [[NSBundle mainBundle] pathForResource:@"settingsAuthentication" ofType:@"plist"];
     NSDictionary *plistDictionary = [[NSDictionary alloc] initWithContentsOfFile:plistCatPath];
-    return [plistDictionary objectForKey:@"Header"];
+    return [plistDictionary objectForKey:@"HeaderResetPassword"];
 }
 
 -(void)customFontLabel:(UILabel*)label font:(NSString*)font fontSize:(CGFloat)fontSize color:(NSString*)color {
@@ -102,6 +111,31 @@
 //END INITIALIZE VIEW
 //--------------------------------------------------------------------//
 
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+//START DELEGATE FUNCTIONS DC
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+-(void)refreshImage:(NSData *)imageData name:(NSString*)name
+{
+    UIImage *image = [UIImage imageWithData:imageData];
+    NSLog(@"IMAGES DATA: %@",name);//[HUD hide:YES];
+    if([name isEqualToString:@"imageCover"]){
+        self.imageHeaderBackground.alpha = 0.0;
+        [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.viewEmail.frame.origin.y)];
+        //self.imageHeaderBackground.contentMode = UIViewContentModeCenter;
+        self.imageHeaderBackground.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageHeaderBackground.image = image;
+        [DC animationAlpha:self.imageHeaderBackground];
+    }
+}
+
+- (void)setProgressBar:(NSIndexPath *)indexPath progress:(float)progress
+{
+    HUD.progress = progress;
+    NSLog(@"progress %f", progress);
+}
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+//END DELEGATE FUNCTIONS DC
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 
 
@@ -130,9 +164,18 @@
 //--------------------------------------------------------------------//
 //START FUNCTIONS
 //--------------------------------------------------------------------//
+-(BOOL)validEmail:(NSString *) candidate {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:candidate];
+}
+
+
 -(void)animationMessageError:(NSString *)msg{
     viewError.alpha = 0.0;
     labelError.text = msg;
+    self.buttonNext.enabled = NO;
+    NSLog(@"animationMessageError %@", msg);
     [UIView animateWithDuration:0.5
                           delay:0.5
                         options: (UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction)
@@ -146,7 +189,10 @@
                                           animations:^{
                                               viewError.alpha = 0.0;
                                           }
-                                          completion:nil];
+                                          completion:^(BOOL finished){
+                                              //startedAnimation = NO;
+                                              self.buttonNext.enabled = YES;
+                                          }];
                      }];
 }
 
@@ -186,20 +232,15 @@
 //--------------------------------------------------------------------//
 //START RESET PASSWORD
 //--------------------------------------------------------------------//
-- (IBAction)actionEnter:(id)sender {
+-(void)resetPassword{
     NSString *emailValue = [self.textEmail.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSLog(@"actionEnter email:%@",emailValue);
     [PFUser requestPasswordResetForEmailInBackground:emailValue];
     
     NSLog(@"ERROR LOADING CATEGORIES!");
-    UIAlertView *categoriesAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"resetPassword", nil) message:NSLocalizedString(@"Il sistema invierà alla e-mail associata al profilo le istruzioni per poter inserire una nuova password.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"TryAgainLKey", nil) otherButtonTitles:nil];
-    [categoriesAlertView show];
-    
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"reset password", nil) message:NSLocalizedString(@"Il sistema invierà alla e-mail associata al profilo le istruzioni per poter inserire una nuova password.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles:nil] show];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedStringFromTable(@"ResetPassword", @"CZ-AuthenticationLocalizable", @"") message:NSLocalizedStringFromTable(@"MessageResetPassword", @"CZ-AuthenticationLocalizable", @"") delegate:self cancelButtonTitle:NSLocalizedStringFromTable(@"Ok", @"CZ-AuthenticationLocalizable", @"") otherButtonTitles:nil];
+    [alertView show];
 }
-
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -216,6 +257,23 @@
     }
 }
 
+
+- (IBAction)actionClose:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)actionNext:(id)sender {
+  
+    if([self validEmail:self.textEmail.text]){
+          NSLog(@"validEmail");
+        [self resetPassword];
+    }else{
+          NSLog(@"errorMessage");
+        [self setMessageError];
+        errorMessage =  [NSString stringWithFormat:@"%@",NSLocalizedStringFromTable(@"EmailError", @"CZ-AuthenticationLocalizable", @"")];
+        [self animationMessageError:errorMessage];
+    }
+}
 
 
 - (void)dealloc{
