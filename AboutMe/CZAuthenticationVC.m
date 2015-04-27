@@ -69,8 +69,8 @@
     [self.buttonIscriviti setTitle:NSLocalizedStringFromTable(@"Iscriviti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     [self.buttonFacebookLogin setTitle:NSLocalizedStringFromTable(@"AccediConFacebook", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     
-//    CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
-//    contentLoginVC.delegate = self;
+    CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
+    contentLoginVC.delegate = self;
     [self addGestureRecognizerToView];
     
 }
@@ -110,25 +110,33 @@
     self.labelHeaderDescription.text = description;
     [self customFontLabel:self.labelHeaderTitle font:titleFont fontSize:titleFontSize color:titleFontColor];
     [self customFontLabel:self.labelHeaderDescription font:descriptionFont fontSize:descriptionFontSize color:descriptionFontColor];
-    [self customFontLabel:self.buttonAccedi.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
-    [self customFontLabel:self.buttonIscriviti.titleLabel font:buttonFont fontSize:buttonFontSize color:buttonFontColor];
     
-    NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
-    imageBackground = [dicHeader objectForKey:@"imageBackground"];
-    if(colorBackground){
-       self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
-       self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
-       //self.viewBackgroundHeader.alpha = [[dicHeader objectForKey:@"alphaViewHeader"] floatValue];
+    [self.buttonAccedi setTitleColor:[CZAuthenticationDC colorWithHexString:buttonFontColor] forState:UIControlStateNormal];
+    self.buttonAccedi.titleLabel.font = [UIFont fontWithName:buttonFont size:buttonFontSize];
+    [self.buttonIscriviti setTitleColor:[CZAuthenticationDC colorWithHexString:buttonFontColor] forState:UIControlStateNormal];
+    self.buttonIscriviti.titleLabel.font = [UIFont fontWithName:buttonFont size:buttonFontSize];
+
+    NSString *colorViewHeader = [dicHeader objectForKey:@"colorViewHeader"];
+    NSString *alphaViewHeader = [dicHeader objectForKey:@"alphaViewHeader"];
+    if(colorViewHeader){
+        self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorViewHeader];
+        self.viewBackgroundHeader.alpha = [alphaViewHeader floatValue];
     }
-    [self loadBackgroundCover];
+    NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
+    NSString *imageBackground = [dicHeader objectForKey:@"imageBackground"];
+    NSString *urlImageBackground = [dicHeader objectForKey:@"urlImageBackground"];
+    //NSLog(@"%@ - %@ - %@",colorBackground,imageBackground,urlImageBackground);
+    if(colorBackground && colorBackground.length > 2){
+       self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
+    }
+    if(imageBackground && imageBackground.length > 2){
+        self.imageHeaderBackground.image = [UIImage imageNamed:imageBackground];
+    }
+    if(urlImageBackground && urlImageBackground.length > 2){
+        [DC loadImageFromUrl:urlImageBackground];
+    }
 }
 
--(void)loadBackgroundCover{
-    //controllo la cache
-    if(imageBackground && self.imageHeaderBackground.image == nil){
-        [DC loadImageFromUrl:imageBackground];
-    }
-}
 
 -(void)setStartPosition{
     posXTriangleStart = (self.buttonAccedi.frame.origin.x+self.buttonAccedi.frame.size.width/2)-self.imageTriangle.frame.size.width/2;
@@ -159,11 +167,13 @@
     UIImage *image = [UIImage imageWithData:imageData];
     NSLog(@"IMAGES DATA: %@",name);
     if([name isEqualToString:@"imageCover"]){
-        //self.imageHeaderBackground.alpha = 1.0;
-        [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
-        self.imageHeaderBackground.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageHeaderBackground.image = image;
-        [self animationAlpha:self.imageHeaderBackground];
+        //UIImageView *imageUploaded = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
+        //self.imageHeaderBackgroundUP.image = [UIImage imageNamed:@"CZ-background009.jpg"];
+        self.imageHeaderBackgroundUP.alpha = 1.0;
+        [self.imageHeaderBackgroundUP setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
+        self.imageHeaderBackgroundUP.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageHeaderBackgroundUP.image = image;
+        [DC animationAlpha:self.imageHeaderBackgroundUP];
     }
 }
 
@@ -204,14 +214,14 @@
 //START FUNCTIONS
 //--------------------------------------------------------------------//
 -(void)animationAlpha:(UIView *)viewAnimated{
-    NSLog(@"START animationAlpha %f",self.containerA.frame.origin.x);
+    NSLog(@"START animationAlpha %f",viewAnimated.alpha);
     viewAnimated.alpha = 0.0;
     [UIView animateWithDuration:1.0
                      animations:^{
                          viewAnimated.alpha = 1.0;
                      }
                      completion:^(BOOL finished){
-                         NSLog(@"START animationAlpha %f",self.containerA.frame.origin.x);
+                         NSLog(@"START animationAlpha %f",viewAnimated.alpha);
                      }];
 }
 

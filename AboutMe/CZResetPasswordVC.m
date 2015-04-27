@@ -30,7 +30,6 @@
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self loadBackgroundCover];
 }
 
 //--------------------------------------------------------------------//
@@ -77,22 +76,24 @@
     self.labelHeaderDescription.text = description;
     [self customFontLabel:self.labelHeaderDescription font:descriptionFont fontSize:descriptionFontSize color:descriptionFontColor];
 
-    NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
-    imageBackground = [dicHeader objectForKey:@"imageBackground"];
-    if(colorBackground){
-        self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
-        //self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
-        self.viewBackgroundHeader.alpha = [[dicHeader objectForKey:@"alphaViewHeader"] floatValue];
+    NSString *colorViewHeader = [dicHeader objectForKey:@"colorViewHeader"];
+    NSString *alphaViewHeader = [dicHeader objectForKey:@"alphaViewHeader"];
+    if(colorViewHeader){
+        self.viewBackgroundHeader.backgroundColor = [CZAuthenticationDC colorWithHexString:colorViewHeader];
+        self.viewBackgroundHeader.alpha = [alphaViewHeader floatValue];
     }
-}
-
--(void)loadBackgroundCover{
-    if(imageBackground && self.imageHeaderBackground.image == nil){
-        NSURL *url = [NSURL URLWithString:imageBackground];
-        NSData *imageData = [NSData dataWithContentsOfURL:url];
-        NSLog(@"imageData: %@",imageData);//[HUD hide:YES];
-        PFFile *imageView = (PFFile *)[PFFile fileWithName:@"imageCover" data:imageData];
-        [DC loadImage:imageView];
+    NSString *colorBackground = [dicHeader objectForKey:@"colorBackground"];
+    NSString *imageBackground = [dicHeader objectForKey:@"imageBackground"];
+    NSString *urlImageBackground = [dicHeader objectForKey:@"urlImageBackground"];
+    //NSLog(@"%@ - %@ - %@",colorBackground,imageBackground,urlImageBackground);
+    if(colorBackground && colorBackground.length > 2){
+        self.imageHeaderBackground.backgroundColor = [CZAuthenticationDC colorWithHexString:colorBackground];
+    }
+    if(imageBackground && imageBackground.length > 2){
+        self.imageHeaderBackground.image = [UIImage imageNamed:imageBackground];
+    }
+    if(urlImageBackground && urlImageBackground.length > 2){
+        [DC loadImageFromUrl:urlImageBackground];
     }
 }
 
@@ -117,14 +118,15 @@
 -(void)refreshImage:(NSData *)imageData name:(NSString*)name
 {
     UIImage *image = [UIImage imageWithData:imageData];
-    NSLog(@"IMAGES DATA: %@",name);//[HUD hide:YES];
+    NSLog(@"IMAGES DATA: %@",name);
     if([name isEqualToString:@"imageCover"]){
-        self.imageHeaderBackground.alpha = 0.0;
-        [self.imageHeaderBackground setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.viewEmail.frame.origin.y)];
-        //self.imageHeaderBackground.contentMode = UIViewContentModeCenter;
-        self.imageHeaderBackground.contentMode = UIViewContentModeScaleAspectFill;
-        self.imageHeaderBackground.image = image;
-        [DC animationAlpha:self.imageHeaderBackground];
+        //UIImageView *imageUploaded = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.containerA.frame.origin.y)];
+        //self.imageHeaderBackgroundUP.image = [UIImage imageNamed:@"CZ-background009.jpg"];
+        self.imageHeaderBackgroundUP.alpha = 1.0;
+        [self.imageHeaderBackgroundUP setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.viewEmail.frame.origin.y)];
+        self.imageHeaderBackgroundUP.contentMode = UIViewContentModeScaleAspectFill;
+        self.imageHeaderBackgroundUP.image = image;
+        [DC animationAlpha:self.imageHeaderBackgroundUP];
     }
 }
 

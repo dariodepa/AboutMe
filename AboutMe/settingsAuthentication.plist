@@ -12,36 +12,44 @@
 	<key>HeaderAuthentication</key>
 	<dict>
 		<key>imageBackground</key>
-		<string>http://igcdn-photos-a-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11032837_341327686061480_1996579083_n.jpg</string>
+		<string>CZ-background004.jpg</string>
+		<key>urlImageBackground</key>
+		<string>https://igcdn-photos-d-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11193201_1568368700090691_1306284140_n.jpg</string>
 		<key>colorBackground</key>
-		<string>4E6CA7</string>
+		<string>eeeeee</string>
+		<key>colorViewHeader</key>
+		<string>000000</string>
 		<key>alphaViewHeader</key>
 		<real>0.3</real>
 		<key>titleFontColor</key>
 		<string>ffffff</string>
 		<key>titleFontSize</key>
-		<string>34.0</string>
+		<string>40</string>
 		<key>titleFont</key>
-		<string>Noteworthy-Bold</string>
+		<string>Heiti SC</string>
 		<key>descriptionFontColor</key>
 		<string>ffffff</string>
 		<key>descriptionFontSize</key>
-		<string>14.0</string>
+		<string>14</string>
 		<key>descriptionFont</key>
-		<string>Avenir</string>
+		<string>Heiti SC</string>
 		<key>buttonFontColor</key>
 		<string>ffffff</string>
 		<key>buttonFont</key>
-		<string>System Bold</string>
+		<string>Heiti SC</string>
 		<key>buttonFontSize</key>
-		<string>12</string>
+		<string>22</string>
 	</dict>
 	<key>HeaderResetPassword</key>
 	<dict>
 		<key>imageBackground</key>
+		<string>CZ-background011.jpg</string>
+		<key>urlImageBackground</key>
 		<string>http://igcdn-photos-e-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11116605_1381477532151508_481588024_n.jpg</string>
 		<key>colorBackground</key>
-		<string>4E6CA7</string>
+		<string>ffffff</string>
+		<key>colorViewHeader</key>
+		<string>000000</string>
 		<key>alphaViewHeader</key>
 		<real>0.3</real>
 		<key>titleFontColor</key>

@@ -18,13 +18,13 @@
     UIView *viewError;
     UILabel *labelError;
     NSDictionary *dicHeader;
-    NSString *imageBackground;
 }
 
 
 @property (strong, nonatomic) IBOutlet UIView *viewEmail;
 @property (weak, nonatomic) IBOutlet UILabel *labelHeaderTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelHeaderDescription;
+@property (strong, nonatomic) IBOutlet UIImageView *imageHeaderBackgroundUP;
 @property (strong, nonatomic) IBOutlet UIImageView *imageHeaderBackground;
 @property (strong, nonatomic) IBOutlet UIView *viewBackgroundHeader;
 @property (weak, nonatomic) IBOutlet UITextField *textEmail;

@@ -87,21 +87,14 @@ int MIN_CHARS_NAMECOMPLETE = 2;
 
 
 -(void)animationAlpha:(UIView *)viewAnimated{
-    NSLog(@"animationAlpha: %f",viewAnimated.alpha);
+    NSLog(@"animationAlphaSTART: %f",viewAnimated.alpha);
     viewAnimated.alpha = 0.0;
-    [UIView animateWithDuration:3.0
+    [UIView animateWithDuration:1.5
                      animations:^{
                          viewAnimated.alpha = 1.0;
-                         NSLog(@"animationAlpha: %f",viewAnimated.alpha);
+                         NSLog(@"animationAlphaEND: %f",viewAnimated.alpha);
                      }
                      completion:^(BOOL finished){
-//                         [UIView animateWithDuration:0.5
-//                                               delay:2.5
-//                                             options: (UIViewAnimationCurveEaseInOut|UIViewAnimationOptionAllowUserInteraction)
-//                                          animations:^{
-//                                              viewAnimated.alpha = 0.0;
-//                                          }
-//                                          completion:nil];
                      }];
 }
 

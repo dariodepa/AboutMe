@@ -14,6 +14,12 @@
 		DCC433521AEC28B9003182D8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCC433541AEC28B9003182D8 /* Localizable.strings */; };
 		DCC4335B1AEC29E1003182D8 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DCC433591AEC29E1003182D8 /* Authentication.storyboard */; };
 		DCC433641AEC2D2A003182D8 /* CZ-AuthenticationLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DCC433661AEC2D2A003182D8 /* CZ-AuthenticationLocalizable.strings */; };
+		DCC4336B1AEEBDF0003182D8 /* CZ-background010.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCC433681AEEBDF0003182D8 /* CZ-background010.jpg */; };
+		DCC4336C1AEEBDF0003182D8 /* CZ-background011.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCC433691AEEBDF0003182D8 /* CZ-background011.jpg */; };
+		DCC4336D1AEEBDF0003182D8 /* CZ-background012.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCC4336A1AEEBDF0003182D8 /* CZ-background012.jpg */; };
+		DCC4336F1AEEBE04003182D8 /* CZ-background009.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCC4336E1AEEBE04003182D8 /* CZ-background009.jpg */; };
+		DCC433741AEEBE0E003182D8 /* CZ-background004.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCC433711AEEBE0E003182D8 /* CZ-background004.jpg */; };
+		DCC433751AEEBE0E003182D8 /* CZ-background007.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DCC433721AEEBE0E003182D8 /* CZ-background007.jpg */; };
 		DCD491F11AD90A62003440D5 /* badge_green.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD491D31AD90A62003440D5 /* badge_green.png */; };
 		DCD491F21AD90A62003440D5 /* badge_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD491D41AD90A62003440D5 /* badge_green@2x.png */; };
 		DCD491F31AD90A62003440D5 /* mail_green.png in Resources */ = {isa = PBXBuildFile; fileRef = DCD491D51AD90A62003440D5 /* mail_green.png */; };
@@ -93,6 +99,12 @@
 		DCC4335C1AEC2A22003182D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authentication.storyboard; sourceTree = "<group>"; };
 		DCC433651AEC2D2A003182D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = "Base.lproj/CZ-AuthenticationLocalizable.strings"; sourceTree = "<group>"; };
 		DCC433671AEC2D60003182D8 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = "it.lproj/CZ-AuthenticationLocalizable.strings"; sourceTree = "<group>"; };
+		DCC433681AEEBDF0003182D8 /* CZ-background010.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "CZ-background010.jpg"; sourceTree = "<group>"; };
+		DCC433691AEEBDF0003182D8 /* CZ-background011.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "CZ-background011.jpg"; sourceTree = "<group>"; };
+		DCC4336A1AEEBDF0003182D8 /* CZ-background012.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "CZ-background012.jpg"; sourceTree = "<group>"; };
+		DCC4336E1AEEBE04003182D8 /* CZ-background009.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "CZ-background009.jpg"; sourceTree = "<group>"; };
+		DCC433711AEEBE0E003182D8 /* CZ-background004.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "CZ-background004.jpg"; sourceTree = "<group>"; };
+		DCC433721AEEBE0E003182D8 /* CZ-background007.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "CZ-background007.jpg"; sourceTree = "<group>"; };
 		DCD491D31AD90A62003440D5 /* badge_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = badge_green.png; sourceTree = "<group>"; };
 		DCD491D41AD90A62003440D5 /* badge_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "badge_green@2x.png"; sourceTree = "<group>"; };
 		DCD491D51AD90A62003440D5 /* mail_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail_green.png; sourceTree = "<group>"; };
@@ -315,6 +327,12 @@
 		DCD785711AC70DE0003E1752 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				DCC433711AEEBE0E003182D8 /* CZ-background004.jpg */,
+				DCC433721AEEBE0E003182D8 /* CZ-background007.jpg */,
+				DCC4336E1AEEBE04003182D8 /* CZ-background009.jpg */,
+				DCC433681AEEBDF0003182D8 /* CZ-background010.jpg */,
+				DCC433691AEEBDF0003182D8 /* CZ-background011.jpg */,
+				DCC4336A1AEEBDF0003182D8 /* CZ-background012.jpg */,
 				DCD493371AE6D35F003440D5 /* logoFB-20x20.png */,
 				DCD493381AE6D360003440D5 /* logoFB-20x20@2x.png */,
 				DCD491D31AD90A62003440D5 /* badge_green.png */,
@@ -417,12 +435,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCC4336D1AEEBDF0003182D8 /* CZ-background012.jpg in Resources */,
 				DCD492071AD90A62003440D5 /* username.png in Resources */,
 				DCD785831AC70E89003E1752 /* settingsAuthentication.plist in Resources */,
 				DCD491FD1AD90A62003440D5 /* mail_red.png in Resources */,
 				DCD4920C1AD90A62003440D5 /* buttonArrow@2x.png in Resources */,
 				DCD491FC1AD90A62003440D5 /* badge.png in Resources */,
 				DCC433521AEC28B9003182D8 /* Localizable.strings in Resources */,
+				DCC4336C1AEEBDF0003182D8 /* CZ-background011.jpg in Resources */,
+				DCC4336B1AEEBDF0003182D8 /* CZ-background010.jpg in Resources */,
 				DCD491F91AD90A62003440D5 /* badge@2x.png in Resources */,
 				DCD491F71AD90A62003440D5 /* username_green.png in Resources */,
 				DCD492091AD90A62003440D5 /* triangolo.png in Resources */,
@@ -442,6 +463,7 @@
 				DCD491F51AD90A62003440D5 /* password_green.png in Resources */,
 				DCD492081AD90A62003440D5 /* username@2x.png in Resources */,
 				DCC4335B1AEC29E1003182D8 /* Authentication.storyboard in Resources */,
+				DCC433741AEEBE0E003182D8 /* CZ-background004.jpg in Resources */,
 				DCD491FB1AD90A62003440D5 /* badge_red@2x.png in Resources */,
 				DCD7850A1AC6ACD6003E1752 /* LaunchScreen.xib in Resources */,
 				DCD493391AE6D360003440D5 /* logoFB-20x20.png in Resources */,
@@ -449,10 +471,12 @@
 				DCD4920A1AD90A62003440D5 /* triangolo@2x.png in Resources */,
 				DCD491FE1AD90A62003440D5 /* mail_red@2x.png in Resources */,
 				DCD493341AE5A679003440D5 /* profile1@2x.jpg in Resources */,
+				DCC433751AEEBE0E003182D8 /* CZ-background007.jpg in Resources */,
 				DCD493361AE5A6B1003440D5 /* header_bg1@2x.jpg in Resources */,
 				DCD492011AD90A62003440D5 /* password_red.png in Resources */,
 				DCD491F21AD90A62003440D5 /* badge_green@2x.png in Resources */,
 				DCD492051AD90A62003440D5 /* username_red.png in Resources */,
+				DCC4336F1AEEBE04003182D8 /* CZ-background009.jpg in Resources */,
 				DCC433641AEC2D2A003182D8 /* CZ-AuthenticationLocalizable.strings in Resources */,
 				DCD491F81AD90A62003440D5 /* username_green@2x.png in Resources */,
 				DCD491F41AD90A62003440D5 /* mail_green@2x.png in Resources */,

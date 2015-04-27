@@ -23,7 +23,6 @@
     UILabel *labelError;
     CGFloat posXTriangleStart;
     NSDictionary *dicHeader;
-    NSString *imageBackground;
 }
 
 
@@ -31,12 +30,14 @@
 @property (nonatomic, weak) IBOutlet UIView *containerB;//signin
 @property (weak, nonatomic) IBOutlet UILabel *labelHeaderTitle;
 @property (weak, nonatomic) IBOutlet UILabel *labelHeaderDescription;
+@property (strong, nonatomic) IBOutlet UIImageView *imageHeaderBackgroundUP;
 @property (strong, nonatomic) IBOutlet UIImageView *imageHeaderBackground;
 @property (strong, nonatomic) IBOutlet UIView *viewBackgroundHeader;
 @property (weak, nonatomic) IBOutlet UIButton *buttonIscriviti;
 @property (weak, nonatomic) IBOutlet UIButton *buttonAccedi;
 //@property (weak, nonatomic) IBOutlet UIView *viewError;
 //@property (weak, nonatomic) IBOutlet UILabel *labelError;
+@property (strong, nonatomic) IBOutlet UIView *viewHeader;
 @property (strong, nonatomic) IBOutlet UIButton *buttonFacebookLogin;
 @property (strong, nonatomic) IBOutlet UIImageView *imageTriangle;
 @property (strong, nonatomic) IBOutlet UIButton *buttonExit;
