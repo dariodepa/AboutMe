@@ -194,7 +194,11 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     NSLog(@"textFieldDidBeginEditing");
-    self.tableView.contentOffset = CGPointMake(0, - (self.tableView.contentInset.top-10));
+    
+    //self.tableView.contentOffset = CGPointMake(0, - (self.tableView.contentInset.top) animated:YES);
+    CGFloat yOffset = - (self.tableView.contentInset.top);
+    [self.tableView setContentOffset:CGPointMake(0, yOffset) animated:YES];
+    
     if(self.textUsername.text.length==0){
         self.imageUsername.image = [UIImage imageNamed:@"username"];
     }
@@ -313,10 +317,7 @@
 
 -(void)resetUserPhoto {
     self.imageProfile.image = nil;
-    //UIImage *image = [UIImage imageNamed:@"noProfile.jpg"];
-    //CGSize newSize = CGSizeMake(280,280);
-    //self.photoProfile.image =[DDPImage scaleAndCropImage:image intoSize:newSize];
-    //[imageTool saveImageWithoutDelegate:nil nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
+    self.imageBackground.image = nil;
 }
 
 - (void)takePhoto {
@@ -359,6 +360,9 @@
     }
     [CZAuthenticationDC arroundImage:(self.imageProfile.frame.size.height/2) borderWidth:0.0 layer:[self.imageProfile layer]];
     self.imageProfile.image = image;
+    self.imageBackground.alpha = 0;
+    self.imageBackground.image = [DC blur:image radius:5];
+    [DC animationAlpha:self.imageBackground];
     [DC saveImageWithoutDelegate:image nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
 }
 
@@ -405,7 +409,7 @@
                 [DC loadImage:imageView];
             }
             
-            [self getCoverImage];
+           // [self getCoverImage];
             
         } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"] isEqualToString: @"OAuthException"]) {
             NSLog(@"The facebook session was invalidated");
@@ -452,9 +456,10 @@
     else{
         self.imageProfile.image = image;
         [CZAuthenticationDC arroundImage:(self.imageProfile.frame.size.height/2) borderWidth:0.0 layer:[self.imageProfile layer]];
-        //CGSize newSize = CGSizeMake(280,280);
-        //self.photoProfile.image =[DDPImage scaleAndCropImage:image intoSize:newSize];
-        //[imageTool customRoundImage:self.photoProfile];
+        
+        self.imageBackground.alpha = 0;
+        self.imageBackground.image = [DC blur:image radius:5];
+        [DC animationAlpha:self.imageBackground];
         [DC saveImageWithoutDelegate:image nameImage:NAME_IMAGE_PROFILE key:KEY_IMAGE_PROFILE];
     }
 }
@@ -595,7 +600,6 @@
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
-
 }
 
 
@@ -615,5 +619,15 @@
             [self registrationUser];
         }
     }
+}
+
+
+- (void)dealloc {
+    NSLog(@"DEALLOC");
+    [DC setDelegate:nil];
+    self.textPassword.delegate = nil;
+    self.textUsername.delegate = nil;
+    self.textNameComplete.delegate = nil;
+    self.textEmail.delegate = nil;
 }
 @end

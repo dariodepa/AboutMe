@@ -277,9 +277,10 @@
     }
 }
 
-
-- (void)dealloc{
+- (void)dealloc {
     NSLog(@"DEALLOC");
+    [DC setDelegate:nil];
+    self.textEmail.delegate = nil;
 }
 
 @end

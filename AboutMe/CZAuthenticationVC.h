@@ -17,6 +17,7 @@
 @interface CZAuthenticationVC : UIViewController<CZLoginDelegate, CZAuthenticationDelegate>{
     MBProgressHUD *HUD;
     CZAuthenticationDC *DC;
+    CZLoginVC *contentLoginVC;
     bool animationActive;
     NSString *errorMessage;
     UIView *viewError;

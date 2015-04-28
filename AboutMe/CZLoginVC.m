@@ -225,5 +225,7 @@
 - (void)dealloc{
     self.textPassword.delegate = nil;
     self.textUsername.delegate = nil;
+    self.delegate = nil;
 }
+
 @end

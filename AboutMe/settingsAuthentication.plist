@@ -43,11 +43,11 @@
 	<key>HeaderResetPassword</key>
 	<dict>
 		<key>imageBackground</key>
-		<string>CZ-background011.jpg</string>
+		<string>CZ-background010.jpg</string>
 		<key>urlImageBackground</key>
 		<string>http://igcdn-photos-e-a.akamaihd.net/hphotos-ak-xaf1/t51.2885-15/11116605_1381477532151508_481588024_n.jpg</string>
 		<key>colorBackground</key>
-		<string>ffffff</string>
+		<string>eeeeee</string>
 		<key>colorViewHeader</key>
 		<string>000000</string>
 		<key>alphaViewHeader</key>
@@ -55,15 +55,15 @@
 		<key>titleFontColor</key>
 		<string>ffffff</string>
 		<key>titleFontSize</key>
-		<string>34.0</string>
+		<string>40</string>
 		<key>titleFont</key>
-		<string>Noteworthy-Bold</string>
+		<string>Heiti SC</string>
 		<key>descriptionFontColor</key>
 		<string>ffffff</string>
 		<key>descriptionFontSize</key>
 		<string>14.0</string>
 		<key>descriptionFont</key>
-		<string>Avenir</string>
+		<string>Heiti SC</string>
 	</dict>
 </dict>
 </plist>

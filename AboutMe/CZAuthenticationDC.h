@@ -36,5 +36,5 @@ extern int MIN_CHARS_NAMECOMPLETE;
 +(void)arroundImage:(float)borderRadius borderWidth:(float)borderWidth layer:(CALayer *)layer;
 +(UIColor *)colorWithHexString:(NSString *)colorString;
 
-
+- (UIImage *)blur:(UIImage*)theImage radius:(CGFloat)radius; //http://stackoverflow.com/questions/17041669/creating-a-blurring-overlay-view
 @end

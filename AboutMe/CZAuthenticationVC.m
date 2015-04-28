@@ -69,7 +69,7 @@
     [self.buttonIscriviti setTitle:NSLocalizedStringFromTable(@"Iscriviti", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     [self.buttonFacebookLogin setTitle:NSLocalizedStringFromTable(@"AccediConFacebook", @"CZ-AuthenticationLocalizable", @"") forState:UIControlStateNormal];
     
-    CZLoginVC *contentLoginVC = [self.childViewControllers objectAtIndex:1];
+    contentLoginVC = [self.childViewControllers objectAtIndex:1];
     contentLoginVC.delegate = self;
     [self addGestureRecognizerToView];
     
@@ -455,8 +455,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)dealloc{
-    NSLog(@"DEALLOC");
+// If ARC is used
+- (void)dealloc {
+     NSLog(@"DEALLOC");
+    [DC setDelegate:nil];
+    [contentLoginVC setDelegate:nil];
 }
+
 
 @end
