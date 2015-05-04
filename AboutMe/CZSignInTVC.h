@@ -30,12 +30,16 @@
     UILabel *labelError;
     
     NSDictionary * settings_config;
+    CGFloat _headerImageYOffset;
+    CGFloat defaultH;
+    CGFloat defaultY;
 }
 
 //@property (weak, nonatomic) IBOutlet UIView *viewError;
 //@property (weak, nonatomic) IBOutlet UILabel *labelError;
 @property (strong, nonatomic) NSString *stringEmail;
 
+@property (strong, nonatomic) IBOutlet UIView *viewHeader;
 @property (weak, nonatomic) IBOutlet UIImageView *imageBackground;
 @property (weak, nonatomic) IBOutlet UIView *viewPhotoUser;
 @property (weak, nonatomic) IBOutlet UIImageView *imageProfile;

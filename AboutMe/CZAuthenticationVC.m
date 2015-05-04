@@ -34,7 +34,6 @@
             [self deleteSessionToken];
         }];
     }
-    
     NSLog(@"SOPRA DA ELIMINARE!!!!!!!!!!!!!!!!!! %f",self.containerB.frame.origin.x);
     DC = [[CZAuthenticationDC alloc] init];
     DC.delegate = self;

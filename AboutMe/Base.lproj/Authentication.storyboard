@@ -1061,6 +1061,7 @@
                         <outlet property="textNameComplete" destination="nKB-mO-iWI" id="Bwr-Zf-Peu"/>
                         <outlet property="textPassword" destination="ZCI-hE-SRD" id="ffI-ty-Ia9"/>
                         <outlet property="textUsername" destination="Ciz-MH-mz5" id="FQV-rP-f7Y"/>
+                        <outlet property="viewHeader" destination="cQk-kH-sNx" id="vpJ-xe-2UR"/>
                         <outlet property="viewPhotoUser" destination="JSZ-ci-tl4" id="TG2-mD-CP5"/>
                         <segue destination="HMU-wA-CbE" kind="unwind" identifier="unwindToAuthenticationVC" unwindAction="unwindToAuthenticationVC:" id="P5O-fM-T62"/>
                         <segue destination="nUH-38-r6V" kind="presentation" identifier="toWebView" id="qSr-Dt-7eK"/>

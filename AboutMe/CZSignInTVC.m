@@ -27,6 +27,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _headerImageYOffset = -150.0;
+    
+    //Intially make the UIIImageView to go beyond the normal y axis to give the user the growing imageView while dragging
+    //self.viewHeader.frame.origin.y -= 130;
+    //Set the value to the float variable for further refrence in the didscroll
+    defaultH = self.viewHeader.frame.size.height;
+    defaultY = self.viewHeader.frame.origin.y;
+    //Apply the change to the UIImageView frame
+    //_imageView.frame = frame;
+    
+    
      NSLog(@"viewDidLoad:");
     self.textNameComplete.delegate = self;
     self.textPassword.delegate = self;
@@ -586,6 +597,8 @@
         vc.titlePage = NSLocalizedStringFromTable(@"titlePrivacyPage", @"CZ-AuthenticationLocalizable", @"");//[settings_config objectForKey:@"titlePrivacyPage"];
     }
 }
+
+
 //-------------------------------------------------------------------//
 //END FUNCTION BUILD TABLE
 //-------------------------------------------------------------------//
